@@ -39,7 +39,7 @@ public class SubjectEntity implements Serializable, GettableById {
     private String nameEn;
 
     @Builder.Default
-    private Instant createdAt = Instant.now();
+    private final Instant createdAt = Instant.now();
 
     @Builder.Default
     private Instant updatedAt = Instant.now();
