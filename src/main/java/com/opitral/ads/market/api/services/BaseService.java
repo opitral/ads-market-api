@@ -132,7 +132,7 @@ public abstract class BaseService<E extends GettableById, V extends GettableById
         merger.mergeEdit(entity, view);
         postUpdate(entity);
         validationService.validForUpdate(entity);
-        repository.saveAndFlush(entity);
+        updateEntity(entity);
         return true;
     }
 
