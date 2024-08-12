@@ -55,7 +55,7 @@ public class SubjectService extends BaseService<SubjectEntity, SubjectView> {
         );
         validationService.validForDelete(entity);
         repository.delete(entity);
-        log.debug("Deleted owner: {}", entity);
+        log.debug("Deleted subject: {}", entity);
 
         return true;
     }

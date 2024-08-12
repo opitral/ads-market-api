@@ -38,9 +38,9 @@ public class SubjectValidation extends BaseValidator<SubjectEntity> {
         super.validForUpdate(entity);
 //        requirePermission(PermissionsEnum.MANAGE_SUBJECTS);
         if (
-                subjectRepository.existsByNameUaEqualsAndIdNot(entity.getNameUa(), entity.getId()) ||
-                        subjectRepository.existsByNameRuEqualsAndIdNot(entity.getNameRu(), entity.getId()) ||
-                        subjectRepository.existsByNameEnEqualsAndIdNot(entity.getNameEn(), entity.getId())
+                subjectRepository.existsByNameUaAndIdNot(entity.getNameUa(), entity.getId()) ||
+                        subjectRepository.existsByNameRuAndIdNot(entity.getNameRu(), entity.getId()) ||
+                        subjectRepository.existsByNameEnAndIdNot(entity.getNameEn(), entity.getId())
         )
             throw new ValidationException(SubjectEntity.class.getName(), "error.subject.name.unique");
     }
@@ -49,6 +49,5 @@ public class SubjectValidation extends BaseValidator<SubjectEntity> {
     public void validForDelete(SubjectEntity entity) {
         super.validForDelete(entity);
 //        requirePermission(PermissionsEnum.DELETE_SUBJECTS);
-
     }
 }
