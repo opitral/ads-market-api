@@ -1,5 +1,7 @@
 package com.opitral.ads.market.api.utils;
 
+import com.opitral.ads.market.api.domain.entity.CityEntity;
+import com.opitral.ads.market.api.repositories.CityRepository;
 import jakarta.persistence.EntityManagerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,8 @@ public class BaseTest {
 
     @Autowired
     protected SubjectRepository subjectRepository;
+    @Autowired
+    protected CityRepository cityRepository;
 
     @BeforeEach
     public void beforeTests() {
@@ -44,14 +48,25 @@ public class BaseTest {
     @AfterEach
     public void cleaning() {
         subjectRepository.deleteAll();
+        cityRepository.deleteAll();
     }
 
-    public Integer createSubject() {
+    public SubjectEntity createSubject() {
         SubjectEntity subjectEntity = new SubjectEntity();
         subjectEntity.setNameUa(getRandomString(10));
         subjectEntity.setNameRu(getRandomString(10));
         subjectEntity.setNameEn(getRandomString(10));
         subjectRepository.save(subjectEntity);
-        return subjectEntity.getId();
+        return subjectEntity;
+    }
+
+    public CityEntity createCity(int subjectId) {
+        CityEntity cityEntity = new CityEntity();
+        cityEntity.setNameUa(getRandomString(10));
+        cityEntity.setNameRu(getRandomString(10));
+        cityEntity.setNameEn(getRandomString(10));
+        cityEntity.setSubject(subjectRepository.findById(subjectId).get());
+        cityRepository.save(cityEntity);
+        return cityEntity;
     }
 }

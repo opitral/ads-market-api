@@ -2,6 +2,7 @@ package com.opitral.ads.market.api.utils;
 
 import java.util.Random;
 
+import com.opitral.ads.market.api.model.view.CityView;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 
@@ -39,5 +40,14 @@ public class UtilsForTests {
         subjectView.setNameRu(getRandomString(10));
         subjectView.setNameEn(getRandomString(10));
         return subjectView;
+    }
+
+    public static CityView getRandomCityView(int subjectId) {
+        CityView cityView = new CityView();
+        cityView.setNameUa(getRandomString(10));
+        cityView.setNameRu(getRandomString(10));
+        cityView.setNameEn(getRandomString(10));
+        cityView.setSubjectId(subjectId);
+        return cityView;
     }
 }
