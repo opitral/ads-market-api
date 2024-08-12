@@ -26,20 +26,21 @@ public class SubjectOpenController {
     private final SmartLocaleResolver localeResolver;
     private final HttpServletRequest httpServletRequest;
 
-    @GetMapping
-    public ResponseEntity<Response<SubjectListResponseLocalized>> getListOfSubjectsOpen(@Valid @RequestParam(required = false) String restrict) {
-        String locale = localeResolver.resolveLocaleLanguage(httpServletRequest);
-        return ResponseEntity.ok(Response.of(subjectService.getAllSubjectsLocalized(restrict, locale)));
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<Response<SubjectResponseLocalized>> getSubjectByIdOpen(@PathVariable Integer id) {
         String locale = localeResolver.resolveLocaleLanguage(httpServletRequest);
         return ResponseEntity.ok(Response.of(subjectService.getSubjectByIdLocalized(id, locale)));
     }
 
+    @GetMapping
+    public ResponseEntity<Response<SubjectListResponseLocalized>> getListOfSubjectsOpen(@Valid @RequestParam(required = false) String restrict) {
+        String locale = localeResolver.resolveLocaleLanguage(httpServletRequest);
+        return ResponseEntity.ok(Response.of(subjectService.getAllSubjectsLocalized(restrict, locale)));
+    }
+
     @GetMapping("/count")
     public ResponseEntity<CommonResponse.LongResponse> countSubjectsOpen(@Valid @RequestParam(required = false) String restrict) {
         return ResponseEntity.ok(CommonResponse.LongResponse.of(subjectService.count(restrict)));
     }
+
 }

@@ -39,7 +39,7 @@ public class ValidationException extends BaseException {
 
     @Override
     public String formMessage(MessageSource messageSource, Locale locale) {
-        return messageSource.getMessage("errors.ValidationException", null,locale);
+        return messageSource.getMessage("errors.ValidationException", null, locale);
     }
 
     @Override

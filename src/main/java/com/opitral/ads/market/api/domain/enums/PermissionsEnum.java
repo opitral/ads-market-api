@@ -4,7 +4,8 @@ import org.springframework.security.core.GrantedAuthority;
 
 public enum PermissionsEnum implements GrantedAuthority {
 
-    MANAGE_SUBJECTS, DELETE_SUBJECTS;
+    MANAGE_SUBJECTS, DELETE_SUBJECTS,
+    MANAGE_CITIES, DELETE_CITIES;
 
     @Override
     public String getAuthority() {

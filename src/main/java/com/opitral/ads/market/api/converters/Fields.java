@@ -4,18 +4,31 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.opitral.ads.market.api.domain.entity.CityEntity_;
+import com.opitral.ads.market.api.domain.entity.SubjectEntity_;
+
 public class Fields {
     public static final String ID = "id";
 
     public static final class Subject {
-        public static final String SUBJECT_ID = "subject_id";
-        public static final String SUBJECT_NAME = "subject_name";
-        public static final String SUBJECT_NAME_UA = "subject_name_ua";
-        public static final String SUBJECT_NAME_RU = "subject_name_ru";
-        public static final String SUBJECT_NAME_EN = "subject_name_en";
+        public static final String SUBJECT_NAME = "name";
+
+        public static final List<String> LOCALIZED_FIELDS_COLLECTION = new ArrayList<>(Arrays.asList(
+                CityEntity_.ID, SUBJECT_NAME
+        ));
 
         public static final List<String> ALL_FIELDS_COLLECTION = new ArrayList<>(Arrays.asList(
-                SUBJECT_ID, SUBJECT_NAME, SUBJECT_NAME_UA, SUBJECT_NAME_RU, SUBJECT_NAME_EN
+                SubjectEntity_.ID, SUBJECT_NAME, SubjectEntity_.NAME_UA, SubjectEntity_.NAME_RU, SubjectEntity_.NAME_EN
+        ));
+
+        public static final String ALL_FIELDS_STRING = String.join(",", ALL_FIELDS_COLLECTION);
+    }
+
+    public static final class City {
+        public static final String CITY_NAME = "name";
+
+        public static final List<String> ALL_FIELDS_COLLECTION = new ArrayList<>(Arrays.asList(
+                CityEntity_.ID, CITY_NAME, CityEntity_.NAME_UA, CityEntity_.NAME_RU, CityEntity_.NAME_EN, CityEntity_.SUBJECT
         ));
 
         public static final String ALL_FIELDS_STRING = String.join(",", ALL_FIELDS_COLLECTION);

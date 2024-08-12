@@ -41,18 +41,19 @@ public class SubjectController {
         return ResponseEntity.ok(CommonResponse.BooleanResponse.of(subjectService.delete(id)));
     }
 
-    @GetMapping
-    public ResponseEntity<Response<SubjectListResponse>> getListOfSubjects(@Valid @RequestParam(required = false) String restrict) {
-        return ResponseEntity.ok(Response.of(subjectService.getAllSubjects(restrict)));
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<Response<SubjectResponse>> getSubjectById(@PathVariable Integer id) {
         return ResponseEntity.ok(Response.of(subjectService.getSubjectById(id)));
+    }
+
+    @GetMapping
+    public ResponseEntity<Response<SubjectListResponse>> getListOfSubjects(@Valid @RequestParam(required = false) String restrict) {
+        return ResponseEntity.ok(Response.of(subjectService.getAllSubjects(restrict)));
     }
 
     @GetMapping("/count")
     public ResponseEntity<CommonResponse.LongResponse> countSubjects(@Valid @RequestParam(required = false) String restrict) {
         return ResponseEntity.ok(CommonResponse.LongResponse.of(subjectService.count(restrict)));
     }
+
 }

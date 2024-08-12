@@ -2,6 +2,8 @@ package com.opitral.ads.market.api.domain.entity;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 import lombok.*;
 
@@ -23,20 +25,20 @@ public class SubjectEntity implements Serializable, GettableById {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(unique = true)
     @NotNull(message = "error.subject.name.empty")
     @Size(max = 250, message = "error.subject.name.size")
     private String nameUa;
 
-    @Column(unique = true)
     @NotNull(message = "error.subject.name.empty")
     @Size(max = 250, message = "error.subject.name.size")
     private String nameRu;
 
-    @Column(unique = true)
     @NotNull(message = "error.subject.name.empty")
     @Size(max = 250, message = "error.subject.name.size")
     private String nameEn;
+
+    @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<CityEntity> cities = new ArrayList<>();
 
     @Builder.Default
     private final Instant createdAt = Instant.now();
