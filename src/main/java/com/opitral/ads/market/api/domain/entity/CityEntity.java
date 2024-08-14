@@ -1,7 +1,6 @@
 package com.opitral.ads.market.api.domain.entity;
 
 import java.io.Serializable;
-import java.time.Instant;
 
 import lombok.*;
 
@@ -42,10 +41,4 @@ public class CityEntity implements Serializable, GettableById {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "subject_id")
     private SubjectEntity subject;
-
-    @Builder.Default
-    private final Instant createdAt = Instant.now();
-
-    @Builder.Default
-    private Instant updatedAt = Instant.now();
 }

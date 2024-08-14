@@ -1,6 +1,5 @@
 package com.opitral.ads.market.api.services.subject;
 
-import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,17 +34,6 @@ public class SubjectService extends BaseService<SubjectEntity, SubjectView> {
     @Override
     public Criteria<SubjectEntity> parse(String restrict) {
         return new SubjectCriteria(restrict);
-    }
-
-    @Override
-    public Criteria<SubjectEntity> parse(String restrict, String locale) {
-        return new SubjectCriteria(restrict, locale);
-    }
-
-    @Override
-    public SubjectEntity updateEntity(SubjectEntity entity) {
-        entity.setUpdatedAt(Instant.now());
-        return repository.saveAndFlush(entity);
     }
 
     @Override

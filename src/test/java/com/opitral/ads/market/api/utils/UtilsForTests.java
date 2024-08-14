@@ -2,7 +2,6 @@ package com.opitral.ads.market.api.utils;
 
 import java.util.Random;
 
-import com.opitral.ads.market.api.model.view.CityView;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 
@@ -11,6 +10,8 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.opitral.ads.market.api.model.view.SubjectView;
+import com.opitral.ads.market.api.model.view.CityView;
+import com.opitral.ads.market.api.model.view.UserView;
 
 @Service
 @RequiredArgsConstructor
@@ -49,5 +50,13 @@ public class UtilsForTests {
         cityView.setNameEn(getRandomString(10));
         cityView.setSubjectId(subjectId);
         return cityView;
+    }
+
+    public static UserView getRandomUserView() {
+        UserView userView = new UserView();
+        userView.setTelegramId(getRandomString(10));
+        userView.setFirstName(getRandomString(10));
+        userView.setLastName(getRandomString(10));
+        return userView;
     }
 }

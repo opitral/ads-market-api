@@ -1,7 +1,5 @@
 package com.opitral.ads.market.api.settings;
 
-import java.util.Locale;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
@@ -23,12 +21,5 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         messageSource.setDefaultEncoding("UTF-8");
         messageSource.setUseCodeAsDefaultMessage(true);
         return messageSource;
-    }
-
-    @Bean
-    public SmartLocaleResolver localeResolver() {
-        SmartLocaleResolver slr = new SmartLocaleResolver();
-        slr.setDefaultLocale(new Locale("uk"));
-        return slr;
     }
 }

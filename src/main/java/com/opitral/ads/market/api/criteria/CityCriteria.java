@@ -1,9 +1,7 @@
 package com.opitral.ads.market.api.criteria;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,10 +14,7 @@ import com.opitral.ads.market.api.domain.entity.*;
 
 @Getter
 @Setter
-public class CityCriteria extends LocalizedCriteria<CityEntity> {
-    private static final Set<String> LOCALIZED_FIELDS = new HashSet<>(List.of(
-            "name"
-    ));
+public class CityCriteria extends Criteria<CityEntity> {
 
     private List<Integer> ids;
     private String query;
@@ -27,10 +22,8 @@ public class CityCriteria extends LocalizedCriteria<CityEntity> {
 
     public CityCriteria() { super(CityEntity.class); }
 
-    public CityCriteria(String restrict) { this(restrict, "ua"); }
-
-    public CityCriteria(String restrict, String locale) {
-        super(CityEntity.class, locale);
+    public CityCriteria(String restrict) {
+        super(CityEntity.class);
 
         CityCriteria parsed = parse(restrict, CityCriteria.class);
         if (parsed != null) {
@@ -47,7 +40,7 @@ public class CityCriteria extends LocalizedCriteria<CityEntity> {
         if (ids != null && !ids.isEmpty())
             predicates.add(root.get(CityEntity_.id).in(ids));
 
-        if (query != null) {
+        if (query != null && !query.isEmpty()) {
             String likeQuery = '%' + query.toLowerCase() + '%';
             predicates.add(cb.or(
                     cb.like(cb.lower(root.get(CityEntity_.nameUa)), likeQuery),
@@ -57,11 +50,8 @@ public class CityCriteria extends LocalizedCriteria<CityEntity> {
         }
 
         if (subjectId != null)
-            predicates.add(cb.equal(root.get(CityEntity_.subjectId), this.subjectId));
+            predicates.add(cb.equal(root.get(CityEntity_.subjectId), subjectId));
 
         return predicates;
     }
-
-    @Override
-    public Set<String> getLocalizedFields() { return LOCALIZED_FIELDS; }
 }

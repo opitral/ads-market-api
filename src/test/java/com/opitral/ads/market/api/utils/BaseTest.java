@@ -1,7 +1,5 @@
 package com.opitral.ads.market.api.utils;
 
-import com.opitral.ads.market.api.domain.entity.CityEntity;
-import com.opitral.ads.market.api.repositories.CityRepository;
 import jakarta.persistence.EntityManagerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +15,10 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import com.opitral.ads.market.api.domain.entity.SubjectEntity;
 import com.opitral.ads.market.api.repositories.SubjectRepository;
+import com.opitral.ads.market.api.domain.entity.CityEntity;
+import com.opitral.ads.market.api.domain.entity.UserEntity;
+import com.opitral.ads.market.api.repositories.CityRepository;
+import com.opitral.ads.market.api.repositories.UserRepository;
 import static com.opitral.ads.market.api.utils.UtilsForTests.*;
 
 @SpringBootTest
@@ -36,6 +38,8 @@ public class BaseTest {
     protected SubjectRepository subjectRepository;
     @Autowired
     protected CityRepository cityRepository;
+    @Autowired
+    protected UserRepository userRepository;
 
     @BeforeEach
     public void beforeTests() {
@@ -49,6 +53,7 @@ public class BaseTest {
     public void cleaning() {
         subjectRepository.deleteAll();
         cityRepository.deleteAll();
+        userRepository.deleteAll();
     }
 
     public SubjectEntity createSubject() {
@@ -68,5 +73,14 @@ public class BaseTest {
         cityEntity.setSubject(subjectRepository.findById(subjectId).get());
         cityRepository.save(cityEntity);
         return cityEntity;
+    }
+
+    public UserEntity createUser() {
+        UserEntity userEntity = new UserEntity();
+        userEntity.setTelegramId(getRandomString(10));
+        userEntity.setFirstName(getRandomString(10));
+        userEntity.setLastName(getRandomString(10));
+        userRepository.save(userEntity);
+        return userEntity;
     }
 }

@@ -1,31 +1,29 @@
 package com.opitral.ads.market.api.city;
 
-import com.opitral.ads.market.api.domain.entity.CityEntity;
-import com.opitral.ads.market.api.domain.entity.SubjectEntity;
-import com.opitral.ads.market.api.model.view.CityView;
-import com.opitral.ads.market.api.model.view.CityView;
-import com.opitral.ads.market.api.utils.BaseTest;
-import com.opitral.ads.market.api.utils.UtilsForTests;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MvcResult;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import static com.jayway.jsonpath.JsonPath.read;
-import static com.opitral.ads.market.api.utils.ApiUrls.*;
-import static com.opitral.ads.market.api.utils.UtilsForTests.getRandomCityView;
-import static com.opitral.ads.market.api.utils.UtilsForTests.getRandomCityView;
-import static org.junit.jupiter.api.Assertions.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MvcResult;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+
+import static com.jayway.jsonpath.JsonPath.read;
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import com.opitral.ads.market.api.domain.entity.CityEntity;
+import com.opitral.ads.market.api.domain.entity.SubjectEntity;
+import com.opitral.ads.market.api.model.view.CityView;
+import com.opitral.ads.market.api.utils.BaseTest;
+import com.opitral.ads.market.api.utils.UtilsForTests;
+import static com.opitral.ads.market.api.utils.ApiUrls.*;
+import static com.opitral.ads.market.api.utils.UtilsForTests.getRandomCityView;
 
 @AutoConfigureMockMvc
 public class CityCRUDTest extends BaseTest {
@@ -41,8 +39,6 @@ public class CityCRUDTest extends BaseTest {
         MvcResult result = mockMvc.perform(post(CITY_API)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-//                        .header(utilsForTests.headerString, utilsForTests.getAuthToken())
-//                        .header(utilsForTests.behalfOn, login)
                         .content(utilsForTests.toJson(view)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -66,8 +62,6 @@ public class CityCRUDTest extends BaseTest {
         mockMvc.perform(put(CITY_API)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-//                        .header(utilsForTests.headerString, utilsForTests.getAuthToken())
-//                        .header(utilsForTests.behalfOn, login)
                         .content(utilsForTests.toJson(newView)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -85,8 +79,6 @@ public class CityCRUDTest extends BaseTest {
         CityEntity city = createCity(subject.getId());
 
         mockMvc.perform(delete(CITY_API + "/" + city.getId())
-//                        .header(utilsForTests.headerString, utilsForTests.getAuthToken())
-//                        .header(utilsForTests.behalfOn, login)
                 )
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -101,10 +93,7 @@ public class CityCRUDTest extends BaseTest {
         SubjectEntity subject = createSubject();
         CityEntity city = createCity(subject.getId());
 
-        mockMvc.perform(get(CITY_API + "/" + city.getId())
-//                        .header(utilsForTests.headerString, utilsForTests.getAuthToken())
-//                        .header(utilsForTests.behalfOn, login)
-                )
+        mockMvc.perform(get(CITY_API + "/" + city.getId()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.result.id").value(city.getId()))
@@ -123,11 +112,7 @@ public class CityCRUDTest extends BaseTest {
         Map<String, Object> restrict = new HashMap<>();
         restrict.put("query", city.getNameRu());
 
-        mockMvc.perform(get(CITY_API)
-                                .param("restrict", utilsForTests.toJson(restrict))
-//                        .header(utilsForTests.headerString, utilsForTests.getAuthToken())
-//                        .header(utilsForTests.behalfOn, login)
-                )
+        mockMvc.perform(get(CITY_API).param("restrict", utilsForTests.toJson(restrict)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.result.total").value(1))
@@ -149,73 +134,7 @@ public class CityCRUDTest extends BaseTest {
         Map<String, Object> restrict = new HashMap<>();
         restrict.put("subjectId", subject.getId());
 
-        mockMvc.perform(get(CITY_API + "/count")
-                                .param("restrict", utilsForTests.toJson(restrict))
-//                        .header(utilsForTests.headerString, utilsForTests.getAuthToken())
-//                        .header(utilsForTests.behalfOn, login)
-                )
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.result").value(10));
-    }
-
-    @Test
-    public void allCanViewCityOpenTest() throws Exception {
-        SubjectEntity subject = createSubject();
-        CityEntity city = createCity(subject.getId());
-
-        mockMvc.perform(get(CITY_OPEN_API + "/" + city.getId())
-                                .header("Accept-Language", "en")
-//                        .header(utilsForTests.headerString, utilsForTests.getAuthToken())
-//                        .header(utilsForTests.behalfOn, login)
-                )
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.result.id").value(city.getId()))
-                .andExpect(jsonPath("$.result.name").value(city.getNameEn()))
-                .andExpect(jsonPath("$.result.subject.id").value(city.getSubject().getId()))
-                .andExpect(jsonPath("$.error").isEmpty());
-    }
-
-    @Test
-    public void allCanViewAllCitiesOpenTest() throws Exception {
-        SubjectEntity subject = createSubject();
-        CityEntity city = createCity(subject.getId());
-
-        Map<String, Object> restrict = new HashMap<>();
-        restrict.put("query", city.getNameUa());
-
-        mockMvc.perform(get(CITY_OPEN_API)
-                                .param("restrict", utilsForTests.toJson(restrict))
-                                .header("Accept-Language", "ru")
-//                        .header(utilsForTests.headerString, utilsForTests.getAuthToken())
-//                        .header(utilsForTests.behalfOn, login)
-                )
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.result.total").value(1))
-                .andExpect(jsonPath("$.result.responseList[0].id").value(city.getId()))
-                .andExpect(jsonPath("$.result.responseList[0].name").value(city.getNameRu()))
-                .andExpect(jsonPath("$.result.responseList[0].subject.id").value(city.getSubject().getId()))
-                .andExpect(jsonPath("$.error").isEmpty());
-    }
-
-    @Test
-    public void allCanGetCountCitiesOpenTest() throws Exception {
-        SubjectEntity subject = createSubject();
-        for (int i = 0; i < 10; i++) {
-            createCity(subject.getId());
-        }
-
-        Map<String, Object> restrict = new HashMap<>();
-        restrict.put("subjectId", subject.getId());
-
-        mockMvc.perform(get(CITY_OPEN_API + "/count")
-                                .param("restrict", utilsForTests.toJson(restrict))
-                                .header("Accept-Language", "uk")
-//                        .header(utilsForTests.headerString, utilsForTests.getAuthToken())
-//                        .header(utilsForTests.behalfOn, login)
-                )
+        mockMvc.perform(get(CITY_API + "/count").param("restrict", utilsForTests.toJson(restrict)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.result").value(10));

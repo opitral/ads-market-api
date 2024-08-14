@@ -7,8 +7,6 @@ import com.opitral.ads.market.api.domain.entity.SubjectEntity;
 import com.opitral.ads.market.api.services.BaseValidator;
 import com.opitral.ads.market.api.exception.ValidationException;
 import com.opitral.ads.market.api.repositories.SubjectRepository;
-import com.opitral.ads.market.api.domain.enums.PermissionsEnum;
-import static com.opitral.ads.market.api.security.SecurityContextAccessor.requirePermission;
 
 @Service
 public class SubjectValidation extends BaseValidator<SubjectEntity> {
@@ -24,7 +22,6 @@ public class SubjectValidation extends BaseValidator<SubjectEntity> {
     @Override
     public void validForCreate(SubjectEntity entity) {
         super.validForCreate(entity);
-//        requirePermission(PermissionsEnum.MANAGE_SUBJECTS);
         if (
                 subjectRepository.existsByNameUa(entity.getNameUa()) ||
                         subjectRepository.existsByNameRu(entity.getNameRu()) ||
@@ -36,7 +33,6 @@ public class SubjectValidation extends BaseValidator<SubjectEntity> {
     @Override
     public void validForUpdate(SubjectEntity entity) {
         super.validForUpdate(entity);
-//        requirePermission(PermissionsEnum.MANAGE_SUBJECTS);
         if (
                 subjectRepository.existsByNameUaAndIdNot(entity.getNameUa(), entity.getId()) ||
                         subjectRepository.existsByNameRuAndIdNot(entity.getNameRu(), entity.getId()) ||
@@ -48,6 +44,5 @@ public class SubjectValidation extends BaseValidator<SubjectEntity> {
     @Override
     public void validForDelete(SubjectEntity entity) {
         super.validForDelete(entity);
-//        requirePermission(PermissionsEnum.DELETE_SUBJECTS);
     }
 }

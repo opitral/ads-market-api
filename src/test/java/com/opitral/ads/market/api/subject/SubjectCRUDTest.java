@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 import static com.jayway.jsonpath.JsonPath.read;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,7 +22,6 @@ import com.opitral.ads.market.api.utils.BaseTest;
 import com.opitral.ads.market.api.utils.UtilsForTests;
 import static com.opitral.ads.market.api.utils.UtilsForTests.getRandomSubjectView;
 import static com.opitral.ads.market.api.utils.ApiUrls.SUBJECT_API;
-import static com.opitral.ads.market.api.utils.ApiUrls.SUBJECT_OPEN_API;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @AutoConfigureMockMvc
@@ -145,67 +144,6 @@ public class SubjectCRUDTest extends BaseTest {
 
         mockMvc.perform(get(SUBJECT_API + "/count")
                                 .param("restrict", utilsForTests.toJson(restrict))
-//                        .header(utilsForTests.headerString, utilsForTests.getAuthToken())
-//                        .header(utilsForTests.behalfOn, login)
-                )
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.result").value(1));
-    }
-
-    @Test
-    public void allCanViewSubjectOpenTest() throws Exception {
-        SubjectEntity subject = createSubject();
-
-        mockMvc.perform(get(SUBJECT_OPEN_API + "/" + subject.getId())
-                                .header("Accept-Language", "en")
-//                        .header(utilsForTests.headerString, utilsForTests.getAuthToken())
-//                        .header(utilsForTests.behalfOn, login)
-                )
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.result.id").value(subject.getId()))
-                .andExpect(jsonPath("$.result.name").value(subject.getNameEn()))
-                .andExpect(jsonPath("$.error").isEmpty());
-    }
-
-    @Test
-    public void allCanViewAllSubjectsOpenTest() throws Exception {
-        SubjectEntity subject = createSubject();
-        for (int i = 0; i < 10; i++) {
-            createSubject();
-        }
-
-        Map<String, Object> restrict = new HashMap<>();
-        restrict.put("query", subject.getNameUa());
-
-        mockMvc.perform(get(SUBJECT_OPEN_API)
-                                .param("restrict", utilsForTests.toJson(restrict))
-                                .header("Accept-Language", "ru")
-//                        .header(utilsForTests.headerString, utilsForTests.getAuthToken())
-//                        .header(utilsForTests.behalfOn, login)
-                )
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.result.total").value(1))
-                .andExpect(jsonPath("$.result.responseList[0].id").value(subject.getId()))
-                .andExpect(jsonPath("$.result.responseList[0].name").value(subject.getNameRu()))
-                .andExpect(jsonPath("$.error").isEmpty());
-    }
-
-    @Test
-    public void allCanGetCountSubjectsOpenTest() throws Exception {
-        SubjectEntity subject = createSubject();
-        for (int i = 0; i < 10; i++) {
-            createSubject();
-        }
-
-        Map<String, Object> restrict = new HashMap<>();
-        restrict.put("query", subject.getNameRu());
-
-        mockMvc.perform(get(SUBJECT_OPEN_API + "/count")
-                                .param("restrict", utilsForTests.toJson(restrict))
-                                .header("Accept-Language", "uk")
 //                        .header(utilsForTests.headerString, utilsForTests.getAuthToken())
 //                        .header(utilsForTests.behalfOn, login)
                 )

@@ -1,9 +1,7 @@
 package com.opitral.ads.market.api.criteria;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,20 +14,15 @@ import com.opitral.ads.market.api.domain.entity.*;
 
 @Getter
 @Setter
-public class SubjectCriteria extends LocalizedCriteria<SubjectEntity> {
-    private static final Set<String> LOCALIZED_FIELDS = new HashSet<>(List.of(
-            "name"
-    ));
+public class SubjectCriteria extends Criteria<SubjectEntity> {
 
     private List<Integer> ids;
     private String query;
 
     public SubjectCriteria() { super(SubjectEntity.class); }
 
-    public SubjectCriteria(String restrict) { this(restrict, "ua"); }
-
-    public SubjectCriteria(String restrict, String locale) {
-        super(SubjectEntity.class, locale);
+    public SubjectCriteria(String restrict) {
+        super(SubjectEntity.class);
 
         SubjectCriteria parsed = parse(restrict, SubjectCriteria.class);
         if (parsed != null) {
@@ -45,7 +38,7 @@ public class SubjectCriteria extends LocalizedCriteria<SubjectEntity> {
         if (ids != null && !ids.isEmpty())
             predicates.add(root.get(SubjectEntity_.id).in(ids));
 
-        if (query != null) {
+        if (query != null && !query.isEmpty()) {
             String likeQuery = '%' + query.toLowerCase() + '%';
             predicates.add(cb.or(
                     cb.like(cb.lower(root.get(SubjectEntity_.nameUa)), likeQuery),
@@ -56,7 +49,4 @@ public class SubjectCriteria extends LocalizedCriteria<SubjectEntity> {
 
         return predicates;
     }
-
-    @Override
-    public Set<String> getLocalizedFields() { return LOCALIZED_FIELDS; }
 }

@@ -11,7 +11,9 @@ import com.opitral.ads.market.api.model.view.SubjectView;
 @RequiredArgsConstructor
 public class SubjectMerger implements Merger<SubjectEntity, SubjectView> {
     @Override
-    public void mergeCreate(SubjectEntity entity, SubjectView view) { mergeMainFields(entity, view); }
+    public void mergeCreate(SubjectEntity entity, SubjectView view) {
+        mergeMainFields(entity, view);
+    }
 
     @Override
     public void mergeEdit(SubjectEntity entity, SubjectView view) {

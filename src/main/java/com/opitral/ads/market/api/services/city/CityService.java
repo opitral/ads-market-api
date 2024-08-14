@@ -1,6 +1,5 @@
 package com.opitral.ads.market.api.services.city;
 
-import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,17 +38,6 @@ public class CityService extends BaseService<CityEntity, CityView> {
     @Override
     public Criteria<CityEntity> parse(String restrict) {
         return new CityCriteria(restrict);
-    }
-
-    @Override
-    public Criteria<CityEntity> parse(String restrict, String locale) {
-        return new CityCriteria(restrict, locale);
-    }
-
-    @Override
-    public CityEntity updateEntity(CityEntity entity) {
-        entity.setUpdatedAt(Instant.now());
-        return repository.saveAndFlush(entity);
     }
 
     @Override

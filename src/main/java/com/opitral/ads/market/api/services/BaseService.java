@@ -1,16 +1,13 @@
 package com.opitral.ads.market.api.services;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Supplier;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.opitral.ads.market.api.common.helpers.GettableById;
-import com.opitral.ads.market.api.converters.Converter;
 import com.opitral.ads.market.api.merger.Merger;
 import com.opitral.ads.market.api.criteria.Criteria;
 import com.opitral.ads.market.api.repositories.BaseRepository;
@@ -27,9 +24,6 @@ public abstract class BaseService<E extends GettableById, V extends GettableById
 
     @Autowired
     protected BaseRepository<E> repository;
-
-    @Autowired
-    protected Converter<E> converter;
 
     @Autowired
     protected Merger<E, V> merger;
@@ -51,22 +45,9 @@ public abstract class BaseService<E extends GettableById, V extends GettableById
     @Override
     @Transactional
     public E getById(Integer id) {
-        E entity = repository.findById(id)
-                .orElseThrow(() -> new NoSuchEntityException(persistentClass.getName(), "id: " + id));
+        E entity = repository.findById(id).orElseThrow(() -> new NoSuchEntityException(persistentClass.getName(), "id: " + id));
         validationService.validForView(entity);
         return entity;
-    }
-
-    @Override
-    @Transactional
-    public Map<String, Object> getById(Integer id, Collection<String> fields) {
-        return converter.convert(getById(id), fields);
-    }
-
-    @Override
-    @Transactional
-    public Map<String, Object> getById(Integer id, Collection<String> fields, String locale) {
-        return converter.convert(getById(id), fields, locale);
     }
 
     @Override
@@ -75,30 +56,6 @@ public abstract class BaseService<E extends GettableById, V extends GettableById
         List<E> entities = criteriaRepository.find(criteria);
         validationService.validForView(entities);
         return entities;
-    }
-
-    @Override
-    @Transactional
-    public List<Map<String, Object>> getList(Collection<String> fields, String restrict) {
-        return getList(parse(restrict), fields);
-    }
-
-    @Override
-    @Transactional
-    public List<Map<String, Object>> getList(Collection<String> fields, String restrict, String locale) {
-        return getList(parse(restrict, locale), fields, locale);
-    }
-
-    @Override
-    @Transactional
-    public List<Map<String, Object>> getList(Criteria<E> criteria, Collection<String> fields) {
-        return converter.convert(getList(criteria), fields);
-    }
-
-    @Override
-    @Transactional
-    public List<Map<String, Object>> getList(Criteria<E> criteria, Collection<String> fields, String locale) {
-        return converter.convert(getList(criteria), fields, locale);
     }
 
     @Override
@@ -138,8 +95,8 @@ public abstract class BaseService<E extends GettableById, V extends GettableById
 
     @Override
     @Transactional
-    public E updateEntity(E entity) {
-        return repository.saveAndFlush(entity);
+    public void updateEntity(E entity) {
+        repository.saveAndFlush(entity);
     }
 
     @Override

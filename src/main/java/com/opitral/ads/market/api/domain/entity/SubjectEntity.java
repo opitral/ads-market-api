@@ -1,7 +1,6 @@
 package com.opitral.ads.market.api.domain.entity;
 
 import java.io.Serializable;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,10 +38,4 @@ public class SubjectEntity implements Serializable, GettableById {
 
     @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<CityEntity> cities = new ArrayList<>();
-
-    @Builder.Default
-    private final Instant createdAt = Instant.now();
-
-    @Builder.Default
-    private Instant updatedAt = Instant.now();
 }
