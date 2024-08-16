@@ -103,7 +103,7 @@ public class CityCRUDTest extends BaseTest {
                 .andExpect(jsonPath("$.result.nameUa").value(city.getNameUa()))
                 .andExpect(jsonPath("$.result.nameRu").value(city.getNameRu()))
                 .andExpect(jsonPath("$.result.nameEn").value(city.getNameEn()))
-                .andExpect(jsonPath("$.result.subject.id").value(city.getSubject().getId()))
+                .andExpect(jsonPath("$.result.subjectId").value(city.getSubject().getId()))
                 .andExpect(jsonPath("$.error").isEmpty());
     }
 
@@ -123,7 +123,7 @@ public class CityCRUDTest extends BaseTest {
                 .andExpect(jsonPath("$.result.responseList[0].nameUa").value(city.getNameUa()))
                 .andExpect(jsonPath("$.result.responseList[0].nameRu").value(city.getNameRu()))
                 .andExpect(jsonPath("$.result.responseList[0].nameEn").value(city.getNameEn()))
-                .andExpect(jsonPath("$.result.responseList[0].subject.id").value(city.getSubject().getId()))
+                .andExpect(jsonPath("$.result.responseList[0].subjectId").value(city.getSubject().getId()))
                 .andExpect(jsonPath("$.error").isEmpty());
     }
 

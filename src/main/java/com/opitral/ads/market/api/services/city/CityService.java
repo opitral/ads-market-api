@@ -67,7 +67,7 @@ public class CityService extends BaseService<CityEntity, CityView> {
                 .nameUa(entity.getNameUa())
                 .nameRu(entity.getNameRu())
                 .nameEn(entity.getNameEn())
-                .subject(subjectService.buildSubjectResponseDto(entity.getSubject()))
+                .subjectId(entity.getSubjectId())
                 .build();
     }
 }

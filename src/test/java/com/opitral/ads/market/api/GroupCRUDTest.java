@@ -111,8 +111,8 @@ public class GroupCRUDTest extends BaseTest {
                 .andExpect(jsonPath("$.result.link").value(group.getLink()))
                 .andExpect(jsonPath("$.result.groupTelegramId").value(group.getGroupTelegramId()))
 
-                .andExpect(jsonPath("$.result.user.id").value(group.getUser().getId()))
-                .andExpect(jsonPath("$.result.city.id").value(group.getCity().getId()))
+                .andExpect(jsonPath("$.result.userTelegramId").value(group.getUser().getTelegramId()))
+                .andExpect(jsonPath("$.result.cityId").value(group.getCity().getId()))
 
                 .andExpect(jsonPath("$.result.workingHoursStart").value(group.getWorkingHoursStart().toString()))
                 .andExpect(jsonPath("$.result.workingHoursEnd").value(group.getWorkingHoursEnd().toString()))
@@ -148,8 +148,8 @@ public class GroupCRUDTest extends BaseTest {
                 .andExpect(jsonPath("$.result.responseList[0].link").value(group.getLink()))
                 .andExpect(jsonPath("$.result.responseList[0].groupTelegramId").value(group.getGroupTelegramId()))
 
-                .andExpect(jsonPath("$.result.responseList[0].user.id").value(group.getUser().getId()))
-                .andExpect(jsonPath("$.result.responseList[0].city.id").value(group.getCity().getId()))
+                .andExpect(jsonPath("$.result.responseList[0].userTelegramId").value(group.getUser().getTelegramId()))
+                .andExpect(jsonPath("$.result.responseList[0].cityId").value(group.getCity().getId()))
 
                 .andExpect(jsonPath("$.result.responseList[0].workingHoursStart").value(group.getWorkingHoursStart().toString()))
                 .andExpect(jsonPath("$.result.responseList[0].workingHoursEnd").value(group.getWorkingHoursEnd().toString()))

@@ -18,8 +18,8 @@ public class GroupResponse {
     private String link;
     private String groupTelegramId;
 
-    private UserResponse user;
-    private CityResponse city;
+    private String userTelegramId;
+    private Integer cityId;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime workingHoursStart;

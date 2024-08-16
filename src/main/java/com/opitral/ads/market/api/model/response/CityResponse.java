@@ -12,5 +12,5 @@ public class CityResponse {
     private String nameUa;
     private String nameRu;
     private String nameEn;
-    private SubjectResponse subject;
+    private Integer subjectId;
 }

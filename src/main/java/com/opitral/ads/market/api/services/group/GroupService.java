@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,8 +18,6 @@ import com.opitral.ads.market.api.exception.NoSuchEntityException;
 import com.opitral.ads.market.api.model.response.*;
 import com.opitral.ads.market.api.model.view.GroupView;
 import com.opitral.ads.market.api.services.BaseService;
-import com.opitral.ads.market.api.services.city.CityService;
-import com.opitral.ads.market.api.services.user.UserService;
 import com.opitral.ads.market.api.domain.entity.Price;
 
 @Service
@@ -28,13 +25,8 @@ import com.opitral.ads.market.api.domain.entity.Price;
 @Transactional(propagation = Propagation.REQUIRED, rollbackFor = BaseException.class)
 public class GroupService extends BaseService<GroupEntity, GroupView> {
 
-    private final UserService userService;
-    private final CityService cityService;
-
-    public GroupService(@Lazy UserService userService, CityService cityService) {
+    public GroupService() {
         super(GroupEntity.class, GroupEntity::new);
-        this.userService = userService;
-        this.cityService = cityService;
     }
 
     @Override
@@ -72,8 +64,8 @@ public class GroupService extends BaseService<GroupEntity, GroupView> {
                 .name(entity.getName())
                 .link(entity.getLink())
                 .groupTelegramId(entity.getGroupTelegramId())
-                .user(userService.buildUserResponseDto(entity.getUser()))
-                .city(cityService.buildCityResponseDto(entity.getCity()))
+                .userTelegramId(entity.getUserTelegramId())
+                .cityId(entity.getCityId())
                 .workingHoursStart(entity.getWorkingHoursStart())
                 .workingHoursEnd(entity.getWorkingHoursEnd())
                 .postIntervalInMinutes(entity.getPostIntervalInMinutes())
