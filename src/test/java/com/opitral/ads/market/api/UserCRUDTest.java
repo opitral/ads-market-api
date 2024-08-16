@@ -1,4 +1,4 @@
-package com.opitral.ads.market.api.user;
+package com.opitral.ads.market.api;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,19 +8,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
+
+import org.junit.jupiter.api.Test;
+
+import com.opitral.ads.market.api.domain.entity.UserEntity;
+import com.opitral.ads.market.api.model.view.UserView;
+import com.opitral.ads.market.api.utils.BaseTest;
+import com.opitral.ads.market.api.utils.UtilsForTests;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import static com.jayway.jsonpath.JsonPath.read;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.opitral.ads.market.api.domain.entity.UserEntity;
-import com.opitral.ads.market.api.model.view.UserView;
-import com.opitral.ads.market.api.utils.BaseTest;
-import com.opitral.ads.market.api.utils.UtilsForTests;
 import static com.opitral.ads.market.api.utils.ApiUrls.USER_API;
 import static com.opitral.ads.market.api.utils.UtilsForTests.getRandomUserView;
 
@@ -31,7 +34,7 @@ public class UserCRUDTest extends BaseTest {
     protected UtilsForTests utilsForTests;
 
     @Test
-    public void adminCanCreateUserTest() throws Exception {
+    public void createUserTest() throws Exception {
         UserView view = getRandomUserView();
 
         MvcResult result = mockMvc.perform(post(USER_API)
@@ -51,7 +54,7 @@ public class UserCRUDTest extends BaseTest {
     }
 
     @Test
-    public void adminCanUpdateUserTest() throws Exception {
+    public void updateUserTest() throws Exception {
         UserEntity user = createUser();
         UserView newView = getRandomUserView();
         newView.setId(user.getId());
@@ -71,7 +74,7 @@ public class UserCRUDTest extends BaseTest {
     }
 
     @Test
-    public void adminCanDeleteUserTest() throws Exception {
+    public void deleteUserTest() throws Exception {
         UserEntity user = createUser();
 
         mockMvc.perform(delete(USER_API + "/" + user.getId()))
@@ -84,7 +87,7 @@ public class UserCRUDTest extends BaseTest {
     }
 
     @Test
-    public void allCanViewUserTest() throws Exception {
+    public void viewUserTest() throws Exception {
         UserEntity user = createUser();
 
         mockMvc.perform(get(USER_API + "/" + user.getId()))
@@ -94,11 +97,12 @@ public class UserCRUDTest extends BaseTest {
                 .andExpect(jsonPath("$.result.telegramId").value(user.getTelegramId()))
                 .andExpect(jsonPath("$.result.firstName").value(user.getFirstName()))
                 .andExpect(jsonPath("$.result.lastName").value(user.getLastName()))
+                .andExpect(jsonPath("$.result.allowedGroupsCount").value(user.getAllowedGroupsCount()))
                 .andExpect(jsonPath("$.error").isEmpty());
     }
 
     @Test
-    public void allCanViewAllUsersTest() throws Exception {
+    public void viewAllUsersTest() throws Exception {
         UserEntity user = createUser();
         for (int i = 0; i < 10; i++) {
             createUser();
@@ -115,11 +119,12 @@ public class UserCRUDTest extends BaseTest {
                 .andExpect(jsonPath("$.result.responseList[0].telegramId").value(user.getTelegramId()))
                 .andExpect(jsonPath("$.result.responseList[0].firstName").value(user.getFirstName()))
                 .andExpect(jsonPath("$.result.responseList[0].lastName").value(user.getLastName()))
+                .andExpect(jsonPath("$.result.responseList[0].allowedGroupsCount").value(user.getAllowedGroupsCount()))
                 .andExpect(jsonPath("$.error").isEmpty());
     }
 
     @Test
-    public void allCanGetCountUsersTest() throws Exception {
+    public void getCountUsersTest() throws Exception {
         UserEntity user = createUser();
         for (int i = 0; i < 10; i++) {
             createUser();

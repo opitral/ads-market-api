@@ -1,6 +1,5 @@
 package com.opitral.ads.market.api.services.user;
 
-import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,13 +46,6 @@ public class UserService extends BaseService<UserEntity, UserView> {
         return true;
     }
 
-    @Override
-    @Transactional
-    public void updateEntity(UserEntity entity) {
-        entity.setUpdatedAt(Instant.now());
-        repository.saveAndFlush(entity);
-    }
-
     public UserResponse getUserByTelegramId(String telegramId) {
         UserEntity entity = ((UserRepository) repository).findByTelegramId(telegramId).orElseThrow(
                 () -> new NoSuchEntityException(UserEntity.class.getName(), "by telegram id: " + telegramId)
@@ -80,6 +72,7 @@ public class UserService extends BaseService<UserEntity, UserView> {
                 .telegramId(entity.getTelegramId())
                 .firstName(entity.getFirstName())
                 .lastName(entity.getLastName())
+                .allowedGroupsCount(entity.getAllowedGroupsCount())
                 .build();
     }
 }

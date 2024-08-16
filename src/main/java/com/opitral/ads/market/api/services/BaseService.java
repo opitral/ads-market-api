@@ -20,6 +20,7 @@ import com.opitral.ads.market.api.exception.ServiceErrorException;
  * @param <E> Entity class
  * @param <V> View class
  */
+@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public abstract class BaseService<E extends GettableById, V extends GettableById & Serializable> implements IService<E, V> {
 
     @Autowired

@@ -18,8 +18,9 @@ import com.opitral.ads.market.api.common.helpers.GettableById;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "subject")
+@Table(name = "subjects")
 public class SubjectEntity implements Serializable, GettableById {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -38,4 +39,5 @@ public class SubjectEntity implements Serializable, GettableById {
 
     @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<CityEntity> cities = new ArrayList<>();
+
 }

@@ -1,4 +1,4 @@
-package com.opitral.ads.market.api.subject;
+package com.opitral.ads.market.api;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,18 +8,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-
-import static com.jayway.jsonpath.JsonPath.read;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.opitral.ads.market.api.domain.entity.SubjectEntity;
 import com.opitral.ads.market.api.model.view.SubjectView;
 import com.opitral.ads.market.api.utils.BaseTest;
 import com.opitral.ads.market.api.utils.UtilsForTests;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+
+import static com.jayway.jsonpath.JsonPath.read;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import static com.opitral.ads.market.api.utils.UtilsForTests.getRandomSubjectView;
 import static com.opitral.ads.market.api.utils.ApiUrls.SUBJECT_API;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -31,14 +34,12 @@ public class SubjectCRUDTest extends BaseTest {
     protected UtilsForTests utilsForTests;
 
     @Test
-    public void adminCanCreateSubjectTest() throws Exception {
+    public void createSubjectTest() throws Exception {
         SubjectView view = getRandomSubjectView();
 
         MvcResult result = mockMvc.perform(post(SUBJECT_API)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-//                        .header(utilsForTests.headerString, utilsForTests.getAuthToken())
-//                        .header(utilsForTests.behalfOn, login)
                         .content(utilsForTests.toJson(view)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -53,7 +54,7 @@ public class SubjectCRUDTest extends BaseTest {
     }
 
     @Test
-    public void adminCanUpdateSubjectTest() throws Exception {
+    public void updateSubjectTest() throws Exception {
         SubjectEntity subject = createSubject();
         SubjectView newView = getRandomSubjectView();
         newView.setId(subject.getId());
@@ -61,8 +62,6 @@ public class SubjectCRUDTest extends BaseTest {
         mockMvc.perform(put(SUBJECT_API)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-//                        .header(utilsForTests.headerString, utilsForTests.getAuthToken())
-//                        .header(utilsForTests.behalfOn, login)
                         .content(utilsForTests.toJson(newView)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -75,13 +74,10 @@ public class SubjectCRUDTest extends BaseTest {
     }
 
     @Test
-    public void adminCanDeleteSubjectTest() throws Exception {
+    public void deleteSubjectTest() throws Exception {
         SubjectEntity subject = createSubject();
 
-        mockMvc.perform(delete(SUBJECT_API + "/" + subject.getId())
-//                        .header(utilsForTests.headerString, utilsForTests.getAuthToken())
-//                        .header(utilsForTests.behalfOn, login)
-                )
+        mockMvc.perform(delete(SUBJECT_API + "/" + subject.getId()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.result").value("true"))
@@ -91,13 +87,10 @@ public class SubjectCRUDTest extends BaseTest {
     }
 
     @Test
-    public void allCanViewSubjectTest() throws Exception {
+    public void viewSubjectTest() throws Exception {
         SubjectEntity subject = createSubject();
 
-        mockMvc.perform(get(SUBJECT_API + "/" + subject.getId())
-//                        .header(utilsForTests.headerString, utilsForTests.getAuthToken())
-//                        .header(utilsForTests.behalfOn, login)
-                )
+        mockMvc.perform(get(SUBJECT_API + "/" + subject.getId()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.result.id").value(subject.getId()))
@@ -108,7 +101,7 @@ public class SubjectCRUDTest extends BaseTest {
     }
 
     @Test
-    public void allCanViewAllSubjectsTest() throws Exception {
+    public void viewAllSubjectsTest() throws Exception {
         SubjectEntity subject = createSubject();
         for (int i = 0; i < 10; i++) {
             createSubject();
@@ -117,11 +110,7 @@ public class SubjectCRUDTest extends BaseTest {
         Map<String, Object> restrict = new HashMap<>();
         restrict.put("query", subject.getNameUa());
 
-        mockMvc.perform(get(SUBJECT_API)
-                                .param("restrict", utilsForTests.toJson(restrict))
-//                        .header(utilsForTests.headerString, utilsForTests.getAuthToken())
-//                        .header(utilsForTests.behalfOn, login)
-                )
+        mockMvc.perform(get(SUBJECT_API).param("restrict", utilsForTests.toJson(restrict)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.result.total").value(1))
@@ -133,7 +122,7 @@ public class SubjectCRUDTest extends BaseTest {
     }
 
     @Test
-    public void allCanGetCountSubjectsTest() throws Exception {
+    public void getCountSubjectsTest() throws Exception {
         SubjectEntity subject = createSubject();
         for (int i = 0; i < 10; i++) {
             createSubject();
@@ -142,11 +131,7 @@ public class SubjectCRUDTest extends BaseTest {
         Map<String, Object> restrict = new HashMap<>();
         restrict.put("query", subject.getNameRu());
 
-        mockMvc.perform(get(SUBJECT_API + "/count")
-                                .param("restrict", utilsForTests.toJson(restrict))
-//                        .header(utilsForTests.headerString, utilsForTests.getAuthToken())
-//                        .header(utilsForTests.behalfOn, login)
-                )
+        mockMvc.perform(get(SUBJECT_API + "/count").param("restrict", utilsForTests.toJson(restrict)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.result").value(1));

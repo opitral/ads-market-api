@@ -1,13 +1,16 @@
 package com.opitral.ads.market.api.domain.entity;
 
-import com.opitral.ads.market.api.common.helpers.GettableById;
+import java.io.Serializable;
+import java.time.Instant;
+import java.util.List;
+
+import lombok.*;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.*;
 
-import java.io.Serializable;
-import java.time.Instant;
+import com.opitral.ads.market.api.common.helpers.GettableById;
 
 @Setter
 @Getter
@@ -17,6 +20,7 @@ import java.time.Instant;
 @Entity
 @Table(name = "users")
 public class UserEntity implements Serializable, GettableById {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -31,9 +35,13 @@ public class UserEntity implements Serializable, GettableById {
     @Size(max = 250, message = "error.last.name.size")
     private String lastName;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<GroupEntity> groups;
+
+    @NotNull(message = "error.user.allowed.groups.count.empty")
+    private Integer allowedGroupsCount;
+
     @Builder.Default
     private final Instant createdAt = Instant.now();
 
-    @Builder.Default
-    private Instant updatedAt = Instant.now();
 }

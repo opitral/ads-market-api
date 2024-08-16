@@ -1,6 +1,7 @@
 package com.opitral.ads.market.api.domain.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import lombok.*;
 
@@ -16,8 +17,9 @@ import com.opitral.ads.market.api.common.helpers.GettableById;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "city")
+@Table(name = "cities")
 public class CityEntity implements Serializable, GettableById {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -41,4 +43,8 @@ public class CityEntity implements Serializable, GettableById {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "subject_id")
     private SubjectEntity subject;
+
+    @OneToMany(mappedBy = "city", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<GroupEntity> groups;
+
 }

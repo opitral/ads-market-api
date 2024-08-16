@@ -44,7 +44,7 @@ public class ValidationException extends BaseException {
 
     @Override
     public List<String> formListErrors(MessageSource messageSource, Locale locale) {
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
         for(String code : codes){
             result.add(messageSource.getMessage(code, null, locale));
         }

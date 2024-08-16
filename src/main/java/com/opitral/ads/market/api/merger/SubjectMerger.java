@@ -17,13 +17,13 @@ public class SubjectMerger implements Merger<SubjectEntity, SubjectView> {
 
     @Override
     public void mergeEdit(SubjectEntity entity, SubjectView view) {
+        if (view.getId() != null)
+            entity.setId(view.getId());
+
         mergeMainFields(entity, view);
     }
 
     private void mergeMainFields(SubjectEntity entity, SubjectView view) {
-        if (view.getId() != null)
-            entity.setId(view.getId());
-
         if (view.getNameUa() != null)
             entity.setNameUa(view.getNameUa());
 

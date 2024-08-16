@@ -17,17 +17,19 @@ public class CityMerger implements Merger<CityEntity, CityView> {
     private final SubjectRepository subjectRepository;
 
     @Override
-    public void mergeCreate(CityEntity entity, CityView view) { mergeMainFields(entity, view); }
+    public void mergeCreate(CityEntity entity, CityView view) {
+        mergeMainFields(entity, view);
+    }
 
     @Override
     public void mergeEdit(CityEntity entity, CityView view) {
+        if (view.getId() != null)
+            entity.setId(view.getId());
+
         mergeMainFields(entity, view);
     }
 
     private void mergeMainFields(CityEntity entity, CityView view) {
-        if (view.getId() != null)
-            entity.setId(view.getId());
-
         if (view.getNameUa() != null)
             entity.setNameUa(view.getNameUa());
 

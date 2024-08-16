@@ -1,4 +1,4 @@
-package com.opitral.ads.market.api.controllers.rest.subject;
+package com.opitral.ads.market.api.controllers.rest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,19 +25,16 @@ public class SubjectController {
 
     @PostMapping
     public ResponseEntity<CommonResponse.IntegerResponse> createSubject(@Valid @RequestBody SubjectView body) {
-//        log.info("User {} wants to create subject {}", SecurityContextAccessor.getTelegramID(), body);
         return ResponseEntity.ok(CommonResponse.IntegerResponse.of(subjectService.create(body)));
     }
 
     @PutMapping
     public ResponseEntity<CommonResponse.BooleanResponse> updateSubject(@Valid @RequestBody SubjectView body) {
-//        log.info("User {} wants to update subject {}", SecurityContextAccessor.getTelegramID(), body);
         return ResponseEntity.ok(CommonResponse.BooleanResponse.of(subjectService.update(body)));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<CommonResponse.BooleanResponse> deleteSubjectById(@PathVariable Integer id) {
-//        log.info("User {} wants to delete subject {}", SecurityContextAccessor.getTelegramID(), id);
         return ResponseEntity.ok(CommonResponse.BooleanResponse.of(subjectService.delete(id)));
     }
 

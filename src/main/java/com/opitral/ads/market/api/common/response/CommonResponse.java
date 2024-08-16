@@ -9,8 +9,7 @@ public class CommonResponse {
     }
 
     public static final class PageListMapResponse extends Response<PageResult<Map<String, Object>>> {
-        public PageListMapResponse() {
-        }
+        public PageListMapResponse() {}
 
         public static PageListMapResponse of(List<Map<String, Object>> list, long total) {
             return of(new PageResult<>(list, total));
@@ -24,8 +23,7 @@ public class CommonResponse {
     }
 
     public static final class ListMapResponse extends Response<List<Map<String, Object>>> {
-        public ListMapResponse() {
-        }
+        public ListMapResponse() {}
 
         public static ListMapResponse of(List<Map<String, Object>> i) {
             ListMapResponse response = new ListMapResponse();
@@ -35,8 +33,7 @@ public class CommonResponse {
     }
 
     public static final class MapResponse extends Response<Map<String, Object>> {
-        public MapResponse() {
-        }
+        public MapResponse() {}
 
         public static MapResponse of(Map<String, Object> i) {
             MapResponse response = new MapResponse();
@@ -46,8 +43,7 @@ public class CommonResponse {
     }
 
     public static final class BooleanResponse extends Response<Boolean> {
-        public BooleanResponse() {
-        }
+        public BooleanResponse() {}
 
         public static BooleanResponse of(Boolean i) {
             BooleanResponse response = new BooleanResponse();
@@ -57,8 +53,7 @@ public class CommonResponse {
     }
 
     public static final class StringResponse extends Response<String> {
-        public StringResponse() {
-        }
+        public StringResponse() {}
 
         public static StringResponse of(String s) {
             StringResponse response = new StringResponse();
@@ -68,8 +63,7 @@ public class CommonResponse {
     }
 
     public static final class LongResponse extends Response<Long> {
-        public LongResponse() {
-        }
+        public LongResponse() {}
 
         public static LongResponse of(Long i) {
             LongResponse response = new LongResponse();
@@ -79,8 +73,7 @@ public class CommonResponse {
     }
 
     public static final class UUIDResponse extends Response<UUID> {
-        public UUIDResponse() {
-        }
+        public UUIDResponse() {}
 
         public static UUIDResponse of(UUID i) {
             UUIDResponse response = new UUIDResponse();
@@ -90,8 +83,7 @@ public class CommonResponse {
     }
 
     public static final class IntegerResponse extends Response<Integer> {
-        public IntegerResponse() {
-        }
+        public IntegerResponse() {}
 
         public static IntegerResponse of(Integer i) {
             IntegerResponse response = new IntegerResponse();

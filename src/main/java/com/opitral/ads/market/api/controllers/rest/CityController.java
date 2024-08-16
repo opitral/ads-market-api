@@ -1,4 +1,4 @@
-package com.opitral.ads.market.api.controllers.rest.city;
+package com.opitral.ads.market.api.controllers.rest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,19 +25,16 @@ public class CityController {
 
     @PostMapping
     public ResponseEntity<CommonResponse.IntegerResponse> createCity(@Valid @RequestBody CityView body) {
-//        log.info("User {} wants to create city {}", SecurityContextAccessor.getTelegramID(), body);
         return ResponseEntity.ok(CommonResponse.IntegerResponse.of(cityService.create(body)));
     }
 
     @PutMapping
     public ResponseEntity<CommonResponse.BooleanResponse> updateCity(@Valid @RequestBody CityView body) {
-//        log.info("User {} wants to update city {}", SecurityContextAccessor.getTelegramID(), body);
         return ResponseEntity.ok(CommonResponse.BooleanResponse.of(cityService.update(body)));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<CommonResponse.BooleanResponse> deleteCityById(@PathVariable Integer id) {
-//        log.info("User {} wants to delete city {}", SecurityContextAccessor.getTelegramID(), id);
         return ResponseEntity.ok(CommonResponse.BooleanResponse.of(cityService.delete(id)));
     }
 

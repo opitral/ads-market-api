@@ -18,13 +18,13 @@ public class UserMerger implements Merger<UserEntity, UserView> {
 
     @Override
     public void mergeEdit(UserEntity entity, UserView view) {
+        if (view.getId() != null)
+            entity.setId(view.getId());
+
         mergeMainFields(entity, view);
     }
 
     private void mergeMainFields(UserEntity entity, UserView view) {
-        if (view.getId() != null)
-            entity.setId(view.getId());
-
         if (view.getTelegramId() != null)
             entity.setTelegramId(view.getTelegramId());
 
@@ -33,5 +33,8 @@ public class UserMerger implements Merger<UserEntity, UserView> {
 
         if (view.getLastName() != null)
             entity.setLastName(view.getLastName());
+
+        if (view.getAllowedGroupsCount() != null)
+            entity.setAllowedGroupsCount(view.getAllowedGroupsCount());
     }
 }

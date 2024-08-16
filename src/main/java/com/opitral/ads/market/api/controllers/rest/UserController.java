@@ -1,4 +1,4 @@
-package com.opitral.ads.market.api.controllers.rest.user;
+package com.opitral.ads.market.api.controllers.rest;
 
 import jakarta.validation.Valid;
 

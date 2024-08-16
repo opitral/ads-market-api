@@ -1,4 +1,4 @@
-package com.opitral.ads.market.api.city;
+package com.opitral.ads.market.api;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,13 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
-import static com.jayway.jsonpath.JsonPath.read;
-
-import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import com.opitral.ads.market.api.domain.entity.CityEntity;
@@ -22,6 +16,15 @@ import com.opitral.ads.market.api.domain.entity.SubjectEntity;
 import com.opitral.ads.market.api.model.view.CityView;
 import com.opitral.ads.market.api.utils.BaseTest;
 import com.opitral.ads.market.api.utils.UtilsForTests;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+
+import static com.jayway.jsonpath.JsonPath.read;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 import static com.opitral.ads.market.api.utils.ApiUrls.*;
 import static com.opitral.ads.market.api.utils.UtilsForTests.getRandomCityView;
 
@@ -32,7 +35,7 @@ public class CityCRUDTest extends BaseTest {
     protected UtilsForTests utilsForTests;
 
     @Test
-    public void adminCanCreateCityTest() throws Exception {
+    public void createCityTest() throws Exception {
         SubjectEntity subject = createSubject();
         CityView view = getRandomCityView(subject.getId());
 
@@ -53,7 +56,7 @@ public class CityCRUDTest extends BaseTest {
     }
 
     @Test
-    public void adminCanUpdateCityTest() throws Exception {
+    public void updateCityTest() throws Exception {
         SubjectEntity subject = createSubject();
         CityEntity city = createCity(subject.getId());
         CityView newView = getRandomCityView(subject.getId());
@@ -74,7 +77,7 @@ public class CityCRUDTest extends BaseTest {
     }
 
     @Test
-    public void adminCanDeleteCityTest() throws Exception {
+    public void deleteCityTest() throws Exception {
         SubjectEntity subject = createSubject();
         CityEntity city = createCity(subject.getId());
 
@@ -89,7 +92,7 @@ public class CityCRUDTest extends BaseTest {
     }
 
     @Test
-    public void allCanViewCityTest() throws Exception {
+    public void viewCityTest() throws Exception {
         SubjectEntity subject = createSubject();
         CityEntity city = createCity(subject.getId());
 
@@ -105,7 +108,7 @@ public class CityCRUDTest extends BaseTest {
     }
 
     @Test
-    public void allCanViewAllCitiesTest() throws Exception {
+    public void viewAllCitiesTest() throws Exception {
         SubjectEntity subject = createSubject();
         CityEntity city = createCity(subject.getId());
 
@@ -125,7 +128,7 @@ public class CityCRUDTest extends BaseTest {
     }
 
     @Test
-    public void allCanGetCountCitiesTest() throws Exception {
+    public void getCountCitiesTest() throws Exception {
         SubjectEntity subject = createSubject();
         for (int i = 0; i < 10; i++) {
             createCity(subject.getId());

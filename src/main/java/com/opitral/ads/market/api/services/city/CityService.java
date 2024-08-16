@@ -15,13 +15,10 @@ import com.opitral.ads.market.api.domain.entity.CityEntity;
 import com.opitral.ads.market.api.exception.BaseException;
 import com.opitral.ads.market.api.exception.NoSuchEntityException;
 import com.opitral.ads.market.api.model.response.CityListResponse;
-import com.opitral.ads.market.api.model.response.CityListResponseLocalized;
 import com.opitral.ads.market.api.model.response.CityResponse;
-import com.opitral.ads.market.api.model.response.CityResponseLocalized;
 import com.opitral.ads.market.api.model.view.CityView;
 import com.opitral.ads.market.api.services.BaseService;
 import com.opitral.ads.market.api.services.subject.SubjectService;
-import com.opitral.ads.market.api.utils.Utils;
 
 @Service
 @Slf4j
@@ -56,32 +53,12 @@ public class CityService extends BaseService<CityEntity, CityView> {
         return buildCityResponseDto(getById(id));
     }
 
-    public CityResponseLocalized getCityByIdLocalized(Integer id, String locale) {
-        return buildCityResponseLocalizedDto(getById(id), locale);
-    }
-
     public CityListResponse getAllCities(String restrict) {
         List<CityResponse> responseList = getList(parse(restrict)).stream()
                 .map(this::buildCityResponseDto)
                 .collect(Collectors.toList());
 
         return new CityListResponse(count(restrict), responseList);
-    }
-
-    public CityListResponseLocalized getAllCitiesLocalized(String restrict, String locale) {
-        List<CityResponseLocalized> responseList = getList(parse(restrict)).stream()
-                .map(entity -> buildCityResponseLocalizedDto(entity, locale))
-                .collect(Collectors.toList());
-
-        return new CityListResponseLocalized(count(restrict), responseList);
-    }
-
-    public CityResponseLocalized buildCityResponseLocalizedDto(CityEntity entity, String locale) {
-        return CityResponseLocalized.builder()
-                .id(entity.getId())
-                .name(Utils.getLocalizedValue(entity::getNameUa, entity::getNameRu, entity::getNameEn, locale))
-                .subject(subjectService.buildSubjectResponseLocalizedDto(entity.getSubject(), locale))
-                .build();
     }
 
     public CityResponse buildCityResponseDto(CityEntity entity) {
@@ -94,4 +71,3 @@ public class CityService extends BaseService<CityEntity, CityView> {
                 .build();
     }
 }
-
