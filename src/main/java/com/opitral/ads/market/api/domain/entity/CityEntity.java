@@ -26,15 +26,7 @@ public class CityEntity implements Serializable, GettableById {
 
     @NotNull(message = "error.city.name.empty")
     @Size(max = 250, message = "error.city.name.size")
-    private String nameUa;
-
-    @NotNull(message = "error.city.name.empty")
-    @Size(max = 250, message = "error.city.name.size")
-    private String nameRu;
-
-    @NotNull(message = "error.city.name.empty")
-    @Size(max = 250, message = "error.city.name.size")
-    private String nameEn;
+    private String name;
 
     @Column(name = "subject_id", insertable = false, updatable = false)
     private Integer subjectId;

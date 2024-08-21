@@ -53,9 +53,4 @@ public class UserController {
         return ResponseEntity.ok(Response.of(userService.getAllUsers(restrict)));
     }
 
-    @GetMapping("/count")
-    public ResponseEntity<CommonResponse.LongResponse> countUsers(@Valid @RequestParam(required = false) String restrict) {
-        return ResponseEntity.ok(CommonResponse.LongResponse.of(userService.count(restrict)));
-    }
-
 }

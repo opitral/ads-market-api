@@ -1,5 +1,6 @@
 package com.opitral.ads.market.api.utils;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Random;
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.opitral.ads.market.api.model.view.*;
+import com.opitral.ads.market.api.domain.enums.PostType;
 
 @Service
 @RequiredArgsConstructor
@@ -36,17 +38,13 @@ public class UtilsForTests {
 
     public static SubjectView getRandomSubjectView() {
         SubjectView subjectView = new SubjectView();
-        subjectView.setNameUa(getRandomString(10));
-        subjectView.setNameRu(getRandomString(10));
-        subjectView.setNameEn(getRandomString(10));
+        subjectView.setName(getRandomString(10));
         return subjectView;
     }
 
     public static CityView getRandomCityView(int subjectId) {
         CityView cityView = new CityView();
-        cityView.setNameUa(getRandomString(10));
-        cityView.setNameRu(getRandomString(10));
-        cityView.setNameEn(getRandomString(10));
+        cityView.setName(getRandomString(10));
         cityView.setSubjectId(subjectId);
         return cityView;
     }
@@ -83,4 +81,22 @@ public class UtilsForTests {
         return groupView;
     }
 
+    public static PostView getRandomPostView(int groupId) {
+        PostView postView = new PostView();
+        postView.setGroupId(groupId);
+        postView.setPublication(
+                new PublicationView(
+                        PostType.PHOTO,
+                        getRandomString(10),
+                        getRandomString(10),
+                        new ButtonView(
+                                getRandomString(10),
+                                getRandomString(10)
+                        )
+                )
+        );
+        postView.setPublishDate(LocalDate.now());
+        postView.setPublishTime(LocalTime.now().plusHours(1));
+        return postView;
+    }
 }

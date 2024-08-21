@@ -7,7 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 @Builder
 @Data
-public class SubjectResponse {
-    private Integer id;
+public class ButtonResponse {
     private String name;
+    private String url;
 }

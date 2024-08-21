@@ -43,9 +43,7 @@ public class CityCriteria extends Criteria<CityEntity> {
         if (query != null && !query.isEmpty()) {
             String likeQuery = '%' + query.toLowerCase() + '%';
             predicates.add(cb.or(
-                    cb.like(cb.lower(root.get(CityEntity_.nameUa)), likeQuery),
-                    cb.like(cb.lower(root.get(CityEntity_.nameRu)), likeQuery),
-                    cb.like(cb.lower(root.get(CityEntity_.nameEn)), likeQuery)
+                    cb.like(cb.lower(root.get(CityEntity_.name)), likeQuery)
             ));
         }
 

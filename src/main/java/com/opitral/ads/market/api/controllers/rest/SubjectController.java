@@ -48,9 +48,4 @@ public class SubjectController {
         return ResponseEntity.ok(Response.of(subjectService.getAllSubjects(restrict)));
     }
 
-    @GetMapping("/count")
-    public ResponseEntity<CommonResponse.LongResponse> countSubjects(@Valid @RequestParam(required = false) String restrict) {
-        return ResponseEntity.ok(CommonResponse.LongResponse.of(subjectService.count(restrict)));
-    }
-
 }

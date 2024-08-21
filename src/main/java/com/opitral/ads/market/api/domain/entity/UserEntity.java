@@ -35,6 +35,9 @@ public class UserEntity implements Serializable, GettableById {
     @Size(max = 250, message = "error.last.name.size")
     private String lastName;
 
+    @Size(max = 250, message = "error.username.size")
+    private String username;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<GroupEntity> groups;
 

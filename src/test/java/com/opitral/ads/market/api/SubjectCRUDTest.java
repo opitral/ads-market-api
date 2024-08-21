@@ -70,7 +70,7 @@ public class SubjectCRUDTest extends BaseTest {
 
         Optional<SubjectEntity> updatedEntity = subjectRepository.findById(subject.getId());
         assertTrue(updatedEntity.isPresent());
-        assertEquals(updatedEntity.get().getNameUa(), newView.getNameUa());
+        assertEquals(updatedEntity.get().getName(), newView.getName());
     }
 
     @Test
@@ -94,9 +94,7 @@ public class SubjectCRUDTest extends BaseTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.result.id").value(subject.getId()))
-                .andExpect(jsonPath("$.result.nameUa").value(subject.getNameUa()))
-                .andExpect(jsonPath("$.result.nameRu").value(subject.getNameRu()))
-                .andExpect(jsonPath("$.result.nameEn").value(subject.getNameEn()))
+                .andExpect(jsonPath("$.result.name").value(subject.getName()))
                 .andExpect(jsonPath("$.error").isEmpty());
     }
 
@@ -108,33 +106,14 @@ public class SubjectCRUDTest extends BaseTest {
         }
 
         Map<String, Object> restrict = new HashMap<>();
-        restrict.put("query", subject.getNameUa());
+        restrict.put("query", subject.getName());
 
         mockMvc.perform(get(SUBJECT_API).param("restrict", utilsForTests.toJson(restrict)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.result.total").value(1))
                 .andExpect(jsonPath("$.result.responseList[0].id").value(subject.getId()))
-                .andExpect(jsonPath("$.result.responseList[0].nameUa").value(subject.getNameUa()))
-                .andExpect(jsonPath("$.result.responseList[0].nameRu").value(subject.getNameRu()))
-                .andExpect(jsonPath("$.result.responseList[0].nameEn").value(subject.getNameEn()))
+                .andExpect(jsonPath("$.result.responseList[0].name").value(subject.getName()))
                 .andExpect(jsonPath("$.error").isEmpty());
     }
-
-    @Test
-    public void getCountSubjectsTest() throws Exception {
-        SubjectEntity subject = createSubject();
-        for (int i = 0; i < 10; i++) {
-            createSubject();
-        }
-
-        Map<String, Object> restrict = new HashMap<>();
-        restrict.put("query", subject.getNameRu());
-
-        mockMvc.perform(get(SUBJECT_API + "/count").param("restrict", utilsForTests.toJson(restrict)))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.result").value(1));
-    }
-
 }

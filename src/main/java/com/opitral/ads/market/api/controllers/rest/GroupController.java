@@ -47,10 +47,5 @@ public class GroupController {
     public ResponseEntity<Response<GroupListResponse>> getListOfGroups(@Valid @RequestParam(required = false) String restrict) {
         return ResponseEntity.ok(Response.of(groupService.getAllGroups(restrict)));
     }
-
-    @GetMapping("/count")
-    public ResponseEntity<CommonResponse.LongResponse> countGroups(@Valid @RequestParam(required = false) String restrict) {
-        return ResponseEntity.ok(CommonResponse.LongResponse.of(groupService.count(restrict)));
-    }
     
 }

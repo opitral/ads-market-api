@@ -73,7 +73,7 @@ public class CityCRUDTest extends BaseTest {
 
         Optional<CityEntity> updatedEntity = cityRepository.findById(city.getId());
         assertTrue(updatedEntity.isPresent());
-        assertEquals(updatedEntity.get().getNameUa(), newView.getNameUa());
+        assertEquals(updatedEntity.get().getName(), newView.getName());
     }
 
     @Test
@@ -100,9 +100,7 @@ public class CityCRUDTest extends BaseTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.result.id").value(city.getId()))
-                .andExpect(jsonPath("$.result.nameUa").value(city.getNameUa()))
-                .andExpect(jsonPath("$.result.nameRu").value(city.getNameRu()))
-                .andExpect(jsonPath("$.result.nameEn").value(city.getNameEn()))
+                .andExpect(jsonPath("$.result.name").value(city.getName()))
                 .andExpect(jsonPath("$.result.subjectId").value(city.getSubject().getId()))
                 .andExpect(jsonPath("$.error").isEmpty());
     }
@@ -113,34 +111,15 @@ public class CityCRUDTest extends BaseTest {
         CityEntity city = createCity(subject.getId());
 
         Map<String, Object> restrict = new HashMap<>();
-        restrict.put("query", city.getNameRu());
+        restrict.put("query", city.getName());
 
         mockMvc.perform(get(CITY_API).param("restrict", utilsForTests.toJson(restrict)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.result.total").value(1))
                 .andExpect(jsonPath("$.result.responseList[0].id").value(city.getId()))
-                .andExpect(jsonPath("$.result.responseList[0].nameUa").value(city.getNameUa()))
-                .andExpect(jsonPath("$.result.responseList[0].nameRu").value(city.getNameRu()))
-                .andExpect(jsonPath("$.result.responseList[0].nameEn").value(city.getNameEn()))
+                .andExpect(jsonPath("$.result.responseList[0].name").value(city.getName()))
                 .andExpect(jsonPath("$.result.responseList[0].subjectId").value(city.getSubject().getId()))
                 .andExpect(jsonPath("$.error").isEmpty());
     }
-
-    @Test
-    public void getCountCitiesTest() throws Exception {
-        SubjectEntity subject = createSubject();
-        for (int i = 0; i < 10; i++) {
-            createCity(subject.getId());
-        }
-
-        Map<String, Object> restrict = new HashMap<>();
-        restrict.put("subjectId", subject.getId());
-
-        mockMvc.perform(get(CITY_API + "/count").param("restrict", utilsForTests.toJson(restrict)))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.result").value(10));
-    }
-    
 }

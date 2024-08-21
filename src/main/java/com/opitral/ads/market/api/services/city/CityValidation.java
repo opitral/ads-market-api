@@ -21,22 +21,14 @@ public class CityValidation extends BaseValidator<CityEntity> {
     @Override
     public void validForCreate(CityEntity entity) {
         super.validForCreate(entity);
-        if (
-                cityRepository.existsByNameUaAndSubjectId(entity.getNameUa(), entity.getSubjectId()) ||
-                        cityRepository.existsByNameRuAndSubjectId(entity.getNameRu(), entity.getSubjectId()) ||
-                        cityRepository.existsByNameEnAndSubjectId(entity.getNameEn(), entity.getSubjectId())
-        )
+        if (cityRepository.existsByNameAndSubjectId(entity.getName(), entity.getSubjectId()))
             throw new ValidationException(SubjectEntity.class.getName(), "error.city.name.unique");
     }
 
     @Override
     public void validForUpdate(CityEntity entity) {
         super.validForUpdate(entity);
-        if (
-                cityRepository.existsByNameUaAndSubjectIdAndIdNot(entity.getNameUa(), entity.getSubjectId(), entity.getId()) ||
-                        cityRepository.existsByNameRuAndSubjectIdAndIdNot(entity.getNameRu(), entity.getSubjectId(), entity.getId()) ||
-                        cityRepository.existsByNameEnAndSubjectIdAndIdNot(entity.getNameEn(), entity.getSubjectId(), entity.getId())
-        )
+        if (cityRepository.existsByNameAndSubjectIdAndIdNot(entity.getName(), entity.getSubjectId(), entity.getId()))
             throw new ValidationException(SubjectEntity.class.getName(), "error.city.name.unique");
     }
 

@@ -9,8 +9,6 @@ import lombok.Data;
 @Data
 public class CityResponse {
     private Integer id;
-    private String nameUa;
-    private String nameRu;
-    private String nameEn;
+    private String name;
     private Integer subjectId;
 }

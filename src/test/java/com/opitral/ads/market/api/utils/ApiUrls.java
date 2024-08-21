@@ -5,4 +5,6 @@ public interface ApiUrls {
     String CITY_API = "/api/city";
     String USER_API = "/api/user";
     String GROUP_API = "/api/group";
+    String POST_API = "/api/post";
+    String SCHEDULE_API = "/api/schedule";
 }

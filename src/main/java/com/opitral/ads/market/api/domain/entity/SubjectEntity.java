@@ -27,15 +27,7 @@ public class SubjectEntity implements Serializable, GettableById {
 
     @NotNull(message = "error.subject.name.empty")
     @Size(max = 250, message = "error.subject.name.size")
-    private String nameUa;
-
-    @NotNull(message = "error.subject.name.empty")
-    @Size(max = 250, message = "error.subject.name.size")
-    private String nameRu;
-
-    @NotNull(message = "error.subject.name.empty")
-    @Size(max = 250, message = "error.subject.name.size")
-    private String nameEn;
+    private String name;
 
     @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<CityEntity> cities = new ArrayList<>();

@@ -48,9 +48,4 @@ public class CityController {
         return ResponseEntity.ok(Response.of(cityService.getAllCities(restrict)));
     }
 
-    @GetMapping("/count")
-    public ResponseEntity<CommonResponse.LongResponse> countCities(@Valid @RequestParam(required = false) String restrict) {
-        return ResponseEntity.ok(CommonResponse.LongResponse.of(cityService.count(restrict)));
-    }
-
 }

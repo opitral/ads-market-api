@@ -36,5 +36,8 @@ public class UserMerger implements Merger<UserEntity, UserView> {
 
         if (view.getAllowedGroupsCount() != null)
             entity.setAllowedGroupsCount(view.getAllowedGroupsCount());
+
+        if (view.getUsername() != null)
+            entity.setUsername(view.getUsername());
     }
 }

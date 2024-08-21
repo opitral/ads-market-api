@@ -163,20 +163,4 @@ public class GroupCRUDTest extends BaseTest {
                 .andExpect(jsonPath("$.result.responseList[0].averagePostViews").value(group.getAveragePostViews()))
                 .andExpect(jsonPath("$.error").isEmpty());
     }
-
-    @Test
-    public void allCanGetCountGroupsTest() throws Exception {
-        UserEntity user = createUser();
-        SubjectEntity subject = createSubject();
-        CityEntity city = createCity(subject.getId());
-        createGroup(user.getTelegramId(), city.getId());
-
-        Map<String, Object> restrict = new HashMap<>();
-        restrict.put("userTelegramId", user.getTelegramId());
-
-        mockMvc.perform(get(GROUP_API + "/count").param("restrict", utilsForTests.toJson(restrict)))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.result").value(1));
-    }
 }

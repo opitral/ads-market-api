@@ -7,13 +7,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import com.opitral.ads.market.api.common.helpers.GettableById;
+import com.opitral.ads.market.api.domain.enums.PostType;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class SubjectView implements Serializable, GettableById {
-    private Integer id;
-    private String name;
+public class PublicationView implements Serializable {
+    private PostType type;
+    private String fileId;
+    private String text;
+    private ButtonView button;
 }

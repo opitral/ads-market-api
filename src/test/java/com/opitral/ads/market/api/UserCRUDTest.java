@@ -122,21 +122,4 @@ public class UserCRUDTest extends BaseTest {
                 .andExpect(jsonPath("$.result.responseList[0].allowedGroupsCount").value(user.getAllowedGroupsCount()))
                 .andExpect(jsonPath("$.error").isEmpty());
     }
-
-    @Test
-    public void getCountUsersTest() throws Exception {
-        UserEntity user = createUser();
-        for (int i = 0; i < 10; i++) {
-            createUser();
-        }
-
-        Map<String, Object> restrict = new HashMap<>();
-        restrict.put("query", user.getTelegramId());
-
-        mockMvc.perform(get(USER_API + "/count").param("restrict", utilsForTests.toJson(restrict)))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.result").value(1));
-    }
-    
 }

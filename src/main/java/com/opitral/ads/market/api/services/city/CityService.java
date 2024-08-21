@@ -18,18 +18,14 @@ import com.opitral.ads.market.api.model.response.CityListResponse;
 import com.opitral.ads.market.api.model.response.CityResponse;
 import com.opitral.ads.market.api.model.view.CityView;
 import com.opitral.ads.market.api.services.BaseService;
-import com.opitral.ads.market.api.services.subject.SubjectService;
 
 @Service
 @Slf4j
 @Transactional(propagation = Propagation.REQUIRED, rollbackFor = BaseException.class)
 public class CityService extends BaseService<CityEntity, CityView> {
 
-    private final SubjectService subjectService;
-
-    public CityService(SubjectService subjectService) {
+    public CityService() {
         super(CityEntity.class, CityEntity::new);
-        this.subjectService = subjectService;
     }
 
     @Override
@@ -64,9 +60,7 @@ public class CityService extends BaseService<CityEntity, CityView> {
     public CityResponse buildCityResponseDto(CityEntity entity) {
         return CityResponse.builder()
                 .id(entity.getId())
-                .nameUa(entity.getNameUa())
-                .nameRu(entity.getNameRu())
-                .nameEn(entity.getNameEn())
+                .name(entity.getName())
                 .subjectId(entity.getSubjectId())
                 .build();
     }

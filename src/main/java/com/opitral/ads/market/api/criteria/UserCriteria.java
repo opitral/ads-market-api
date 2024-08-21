@@ -20,6 +20,7 @@ public class UserCriteria extends Criteria<UserEntity> {
     private List<Integer> ids;
     private String query;
     private String telegramId;
+    private String username;
 
     public UserCriteria() { super(UserEntity.class); }
 
@@ -31,6 +32,7 @@ public class UserCriteria extends Criteria<UserEntity> {
             this.ids = parsed.ids;
             this.query = parsed.query;
             this.telegramId = parsed.telegramId;
+            this.username = parsed.username;
         }
     }
 
@@ -47,12 +49,16 @@ public class UserCriteria extends Criteria<UserEntity> {
             predicates.add(cb.or(
                     cb.like(cb.lower(root.get(UserEntity_.telegramId)), likeQuery),
                     cb.like(cb.lower(root.get(UserEntity_.firstName)), likeQuery),
-                    cb.like(cb.lower(root.get(UserEntity_.lastName)), likeQuery)
+                    cb.like(cb.lower(root.get(UserEntity_.lastName)), likeQuery),
+                    cb.like(cb.lower(root.get(UserEntity_.username)), likeQuery)
             ));
         }
 
         if (telegramId != null)
             predicates.add(cb.equal(root.get(UserEntity_.telegramId), telegramId));
+
+        if (username != null)
+            predicates.add(cb.equal(root.get(UserEntity_.username), username));
 
         return predicates;
     }

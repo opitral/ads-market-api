@@ -41,9 +41,7 @@ public class SubjectCriteria extends Criteria<SubjectEntity> {
         if (query != null && !query.isEmpty()) {
             String likeQuery = '%' + query.toLowerCase() + '%';
             predicates.add(cb.or(
-                    cb.like(cb.lower(root.get(SubjectEntity_.nameUa)), likeQuery),
-                    cb.like(cb.lower(root.get(SubjectEntity_.nameRu)), likeQuery),
-                    cb.like(cb.lower(root.get(SubjectEntity_.nameEn)), likeQuery)
+                    cb.like(cb.lower(root.get(SubjectEntity_.name)), likeQuery)
             ));
         }
 

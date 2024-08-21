@@ -3,7 +3,10 @@ package com.opitral.ads.market.api.domain.entity;
 import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.validation.Valid;
 import lombok.*;
 
 import jakarta.validation.constraints.Max;
@@ -68,6 +71,7 @@ public class GroupEntity implements Serializable, GettableById {
             @AttributeOverride(name = "withPin", column = @Column(name = "one_day_with_pin")),
             @AttributeOverride(name = "withoutPin", column = @Column(name = "one_day_without_pin"))
     })
+    @Valid
     private Price priceForOneDay;
 
     @Embedded
@@ -76,6 +80,7 @@ public class GroupEntity implements Serializable, GettableById {
             @AttributeOverride(name = "withPin", column = @Column(name = "one_week_with_pin")),
             @AttributeOverride(name = "withoutPin", column = @Column(name = "one_week_without_pin"))
     })
+    @Valid
     private Price priceForOneWeek;
 
     @Embedded
@@ -84,6 +89,7 @@ public class GroupEntity implements Serializable, GettableById {
             @AttributeOverride(name = "withPin", column = @Column(name = "two_weeks_with_pin")),
             @AttributeOverride(name = "withoutPin", column = @Column(name = "two_weeks_without_pin"))
     })
+    @Valid
     private Price priceForTwoWeeks;
 
     @Embedded
@@ -92,9 +98,13 @@ public class GroupEntity implements Serializable, GettableById {
             @AttributeOverride(name = "withPin", column = @Column(name = "one_month_with_pin")),
             @AttributeOverride(name = "withoutPin", column = @Column(name = "one_month_without_pin"))
     })
+    @Valid
     private Price priceForOneMonth;
 
     private Integer averagePostViews;
+
+    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PostEntity> posts = new ArrayList<>();
 
     @Builder.Default
     private final Instant createdAt = Instant.now();

@@ -72,6 +72,7 @@ public class UserService extends BaseService<UserEntity, UserView> {
                 .telegramId(entity.getTelegramId())
                 .firstName(entity.getFirstName())
                 .lastName(entity.getLastName())
+                .username(entity.getUsername())
                 .allowedGroupsCount(entity.getAllowedGroupsCount())
                 .build();
     }

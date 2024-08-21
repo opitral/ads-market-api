@@ -1,7 +1,9 @@
 package com.opitral.ads.market.api.utils;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
+import com.opitral.ads.market.api.domain.enums.PostType;
 import jakarta.persistence.EntityManagerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,8 @@ public class BaseTest {
     protected UserRepository userRepository;
     @Autowired
     protected GroupRepository groupRepository;
+    @Autowired
+    protected PostRepository postRepository;
 
     @BeforeEach
     public void beforeTests() {
@@ -52,22 +56,19 @@ public class BaseTest {
         cityRepository.deleteAll();
         userRepository.deleteAll();
         groupRepository.deleteAll();
+        postRepository.deleteAll();
     }
 
     public SubjectEntity createSubject() {
         SubjectEntity subjectEntity = new SubjectEntity();
-        subjectEntity.setNameUa(getRandomString(10));
-        subjectEntity.setNameRu(getRandomString(10));
-        subjectEntity.setNameEn(getRandomString(10));
+        subjectEntity.setName(getRandomString(10));
         subjectRepository.save(subjectEntity);
         return subjectEntity;
     }
 
     public CityEntity createCity(int subjectId) {
         CityEntity cityEntity = new CityEntity();
-        cityEntity.setNameUa(getRandomString(10));
-        cityEntity.setNameRu(getRandomString(10));
-        cityEntity.setNameEn(getRandomString(10));
+        cityEntity.setName(getRandomString(10));
         cityEntity.setSubject(subjectRepository.findById(subjectId).orElseThrow(
                 () -> new NoSuchEntityException(SubjectEntity.class.getName(), "by id: " + subjectId)
         ));
@@ -80,6 +81,7 @@ public class BaseTest {
         userEntity.setTelegramId(getRandomString(10));
         userEntity.setFirstName(getRandomString(10));
         userEntity.setLastName(getRandomString(10));
+        userEntity.setUsername(getRandomString(10));
         userEntity.setAllowedGroupsCount(5);
         userRepository.save(userEntity);
         return userEntity;
@@ -108,5 +110,27 @@ public class BaseTest {
         groupEntity.setAveragePostViews(5);
         groupRepository.save(groupEntity);
         return groupEntity;
+    }
+
+    public PostEntity createPost(int groupId) {
+        PostEntity postEntity = new PostEntity();
+        postEntity.setPublication(
+                new Publication(
+                        PostType.PHOTO,
+                        getRandomString(10),
+                        getRandomString(10),
+                        new Button(
+                                getRandomString(10),
+                                getRandomString(10)
+                        )
+                )
+        );
+        postEntity.setGroup(groupRepository.findById(groupId).orElseThrow(
+                () -> new NoSuchEntityException(PostEntity.class.getName(), "by id: " + groupId)
+        ));
+        postEntity.setPublishDate(LocalDate.now());
+        postEntity.setPublishTime(LocalTime.now().plusHours(1));
+        postRepository.save(postEntity);
+        return postEntity;
     }
 }

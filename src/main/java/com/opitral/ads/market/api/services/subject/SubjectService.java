@@ -60,9 +60,7 @@ public class SubjectService extends BaseService<SubjectEntity, SubjectView> {
     public SubjectResponse buildSubjectResponseDto(SubjectEntity entity) {
         return SubjectResponse.builder()
                 .id(entity.getId())
-                .nameUa(entity.getNameUa())
-                .nameRu(entity.getNameRu())
-                .nameEn(entity.getNameEn())
+                .name(entity.getName())
                 .build();
     }
 }

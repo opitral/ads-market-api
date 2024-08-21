@@ -30,14 +30,8 @@ public class CityMerger implements Merger<CityEntity, CityView> {
     }
 
     private void mergeMainFields(CityEntity entity, CityView view) {
-        if (view.getNameUa() != null)
-            entity.setNameUa(view.getNameUa());
-
-        if (view.getNameRu() != null)
-            entity.setNameRu(view.getNameRu());
-
-        if (view.getNameEn() != null)
-            entity.setNameEn(view.getNameEn());
+        if (view.getName() != null)
+            entity.setName(view.getName());
 
         if (view.getSubjectId() != null) {
             entity.setSubject(subjectRepository.findById(view.getSubjectId()).orElseThrow(

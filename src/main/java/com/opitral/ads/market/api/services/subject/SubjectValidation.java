@@ -22,22 +22,14 @@ public class SubjectValidation extends BaseValidator<SubjectEntity> {
     @Override
     public void validForCreate(SubjectEntity entity) {
         super.validForCreate(entity);
-        if (
-                subjectRepository.existsByNameUa(entity.getNameUa()) ||
-                        subjectRepository.existsByNameRu(entity.getNameRu()) ||
-                        subjectRepository.existsByNameEn(entity.getNameEn())
-        )
+        if (subjectRepository.existsByName(entity.getName()))
             throw new ValidationException(SubjectEntity.class.getName(), "error.subject.name.unique");
     }
 
     @Override
     public void validForUpdate(SubjectEntity entity) {
         super.validForUpdate(entity);
-        if (
-                subjectRepository.existsByNameUaAndIdNot(entity.getNameUa(), entity.getId()) ||
-                        subjectRepository.existsByNameRuAndIdNot(entity.getNameRu(), entity.getId()) ||
-                        subjectRepository.existsByNameEnAndIdNot(entity.getNameEn(), entity.getId())
-        )
+        if (subjectRepository.existsByNameAndIdNot(entity.getName(), entity.getId()))
             throw new ValidationException(SubjectEntity.class.getName(), "error.subject.name.unique");
     }
 

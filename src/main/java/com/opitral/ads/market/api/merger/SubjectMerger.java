@@ -24,13 +24,8 @@ public class SubjectMerger implements Merger<SubjectEntity, SubjectView> {
     }
 
     private void mergeMainFields(SubjectEntity entity, SubjectView view) {
-        if (view.getNameUa() != null)
-            entity.setNameUa(view.getNameUa());
+        if (view.getName() != null)
+            entity.setName(view.getName());
 
-        if (view.getNameRu() != null)
-            entity.setNameRu(view.getNameRu());
-
-        if (view.getNameEn() != null)
-            entity.setNameEn(view.getNameEn());
     }
 }

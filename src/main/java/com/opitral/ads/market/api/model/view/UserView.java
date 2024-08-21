@@ -18,5 +18,6 @@ public class UserView implements Serializable, GettableById {
     private String telegramId;
     private String firstName;
     private String lastName;
+    private String username;
     private Integer allowedGroupsCount;
 }
