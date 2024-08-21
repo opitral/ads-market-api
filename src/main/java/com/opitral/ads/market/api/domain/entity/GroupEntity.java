@@ -100,9 +100,6 @@ public class GroupEntity implements Serializable, GettableById {
     private Integer averagePostViews;
 
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<PostEntity> posts = new ArrayList<>();
-
-    @Builder.Default
-    private final Instant createdAt = Instant.now();
+    private final List<PostEntity> posts = new ArrayList<>();
 
 }

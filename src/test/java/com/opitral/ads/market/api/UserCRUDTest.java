@@ -70,7 +70,7 @@ public class UserCRUDTest extends BaseTest {
 
         Optional<UserEntity> updatedEntity = userRepository.findById(user.getId());
         assertTrue(updatedEntity.isPresent());
-        assertEquals(updatedEntity.get().getFirstName(), newView.getFirstName());
+        assertEquals(updatedEntity.get().getTelegramId(), newView.getTelegramId());
     }
 
     @Test
@@ -95,9 +95,6 @@ public class UserCRUDTest extends BaseTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.result.id").value(user.getId()))
                 .andExpect(jsonPath("$.result.telegramId").value(user.getTelegramId()))
-                .andExpect(jsonPath("$.result.firstName").value(user.getFirstName()))
-                .andExpect(jsonPath("$.result.lastName").value(user.getLastName()))
-                .andExpect(jsonPath("$.result.allowedGroupsCount").value(user.getAllowedGroupsCount()))
                 .andExpect(jsonPath("$.error").isEmpty());
     }
 
@@ -109,7 +106,7 @@ public class UserCRUDTest extends BaseTest {
         }
 
         Map<String, Object> restrict = new HashMap<>();
-        restrict.put("query", user.getFirstName());
+        restrict.put("query", user.getTelegramId());
 
         mockMvc.perform(get(USER_API).param("restrict", utilsForTests.toJson(restrict)))
                 .andExpect(status().isOk())
@@ -117,9 +114,6 @@ public class UserCRUDTest extends BaseTest {
                 .andExpect(jsonPath("$.result.total").value(1))
                 .andExpect(jsonPath("$.result.responseList[0].id").value(user.getId()))
                 .andExpect(jsonPath("$.result.responseList[0].telegramId").value(user.getTelegramId()))
-                .andExpect(jsonPath("$.result.responseList[0].firstName").value(user.getFirstName()))
-                .andExpect(jsonPath("$.result.responseList[0].lastName").value(user.getLastName()))
-                .andExpect(jsonPath("$.result.responseList[0].allowedGroupsCount").value(user.getAllowedGroupsCount()))
                 .andExpect(jsonPath("$.error").isEmpty());
     }
 }

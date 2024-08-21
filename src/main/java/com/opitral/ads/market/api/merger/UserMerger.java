@@ -27,17 +27,5 @@ public class UserMerger implements Merger<UserEntity, UserView> {
     private void mergeMainFields(UserEntity entity, UserView view) {
         if (view.getTelegramId() != null)
             entity.setTelegramId(view.getTelegramId());
-
-        if (view.getFirstName() != null)
-            entity.setFirstName(view.getFirstName());
-
-        if (view.getLastName() != null)
-            entity.setLastName(view.getLastName());
-
-        if (view.getAllowedGroupsCount() != null)
-            entity.setAllowedGroupsCount(view.getAllowedGroupsCount());
-
-        if (view.getUsername() != null)
-            entity.setUsername(view.getUsername());
     }
 }

@@ -79,10 +79,6 @@ public class BaseTest {
     public UserEntity createUser() {
         UserEntity userEntity = new UserEntity();
         userEntity.setTelegramId(getRandomString(10));
-        userEntity.setFirstName(getRandomString(10));
-        userEntity.setLastName(getRandomString(10));
-        userEntity.setUsername(getRandomString(10));
-        userEntity.setAllowedGroupsCount(5);
         userRepository.save(userEntity);
         return userEntity;
     }

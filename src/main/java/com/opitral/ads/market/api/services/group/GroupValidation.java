@@ -17,9 +17,6 @@ public class GroupValidation extends BaseValidator<GroupEntity> {
     public void validForCreate(GroupEntity entity) {
         super.validForCreate(entity);
 
-        if (entity.getUser().getGroups().size() >= entity.getUser().getAllowedGroupsCount())
-            throw new ValidationException(GroupEntity.class.getName(), "Вы превысили лимит на добавление групп");
-
         if (entity.getWorkingHoursStart().isAfter(entity.getWorkingHoursEnd()))
             throw new ValidationException(GroupEntity.class.getName(), "Время начала роботы не должно быть позже завершения работы");
 

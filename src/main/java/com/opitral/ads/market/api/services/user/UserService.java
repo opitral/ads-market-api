@@ -70,10 +70,6 @@ public class UserService extends BaseService<UserEntity, UserView> {
         return UserResponse.builder()
                 .id(entity.getId())
                 .telegramId(entity.getTelegramId())
-                .firstName(entity.getFirstName())
-                .lastName(entity.getLastName())
-                .username(entity.getUsername())
-                .allowedGroupsCount(entity.getAllowedGroupsCount())
                 .build();
     }
 }

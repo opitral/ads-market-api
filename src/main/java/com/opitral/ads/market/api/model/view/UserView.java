@@ -16,8 +16,4 @@ import com.opitral.ads.market.api.common.helpers.GettableById;
 public class UserView implements Serializable, GettableById {
     private Integer id;
     private String telegramId;
-    private String firstName;
-    private String lastName;
-    private String username;
-    private Integer allowedGroupsCount;
 }

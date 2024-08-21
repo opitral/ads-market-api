@@ -52,9 +52,6 @@ public class UtilsForTests {
     public static UserView getRandomUserView() {
         UserView userView = new UserView();
         userView.setTelegramId(getRandomString(10));
-        userView.setFirstName(getRandomString(10));
-        userView.setLastName(getRandomString(10));
-        userView.setAllowedGroupsCount(5);
         return userView;
     }
 
