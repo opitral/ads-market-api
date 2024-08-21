@@ -18,13 +18,13 @@ public class GroupValidation extends BaseValidator<GroupEntity> {
         super.validForCreate(entity);
 
         if (entity.getUser().getGroups().size() >= entity.getUser().getAllowedGroupsCount())
-            throw new ValidationException(GroupEntity.class.getName(), "error.group.limit.out");
+            throw new ValidationException(GroupEntity.class.getName(), "Вы превысили лимит на добавление групп");
 
         if (entity.getWorkingHoursStart().isAfter(entity.getWorkingHoursEnd()))
-            throw new ValidationException(GroupEntity.class.getName(), "error.group.working.hours.start");
+            throw new ValidationException(GroupEntity.class.getName(), "Время начала роботы не должно быть позже завершения работы");
 
         if (entity.getPostIntervalInMinutes() % 30 != 0) {
-            throw new ValidationException(GroupEntity.class.getName(), "error.group.post.interval.value");
+            throw new ValidationException(GroupEntity.class.getName(), "Интервал между публикациями постов должен быть кратным 30");
         }
     }
 
@@ -32,8 +32,11 @@ public class GroupValidation extends BaseValidator<GroupEntity> {
     public void validForUpdate(GroupEntity entity) {
         super.validForUpdate(entity);
 
+        if (entity.getWorkingHoursStart().isAfter(entity.getWorkingHoursEnd()))
+            throw new ValidationException(GroupEntity.class.getName(), "Время начала роботы не должно быть позже завершения работы");
+
         if (entity.getPostIntervalInMinutes() % 30 != 0) {
-            throw new ValidationException(GroupEntity.class.getName(), "error.group.post.interval.value");
+            throw new ValidationException(GroupEntity.class.getName(), "Интервал между публикациями постов должен быть кратным 30");
         }
     }
 

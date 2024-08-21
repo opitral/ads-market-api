@@ -32,10 +32,10 @@ public class PostEntity implements Serializable, GettableById {
     @JoinColumn(name = "group_id", nullable = false)
     private GroupEntity group;
 
-    @NotNull(message = "error.post.publish.date.empty")
+    @NotNull(message = "Дата публикации поста не может быть пустой")
     private LocalDate publishDate;
 
-    @NotNull(message = "error.post.publish.time.empty")
+    @NotNull(message = "Время публикации поста не может быть пустым")
     private LocalTime publishTime;
 
 }

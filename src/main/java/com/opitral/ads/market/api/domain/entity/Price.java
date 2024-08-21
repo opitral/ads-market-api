@@ -15,14 +15,14 @@ import jakarta.persistence.Embeddable;
 @Embeddable
 public class Price {
 
-    @NotNull(message = "error.price.with.pin.empty")
-    @Min(value = 1, message = "error.price.with.pin.min")
-    @Max(value = 10000, message = "error.price.with.pin.max")
+    @NotNull(message = "Цена с закрепом не может быть пустой")
+    @Min(value = 1, message = "Минимальная цена - 1")
+    @Max(value = 10000, message = "Максимальная цена - 10000")
     private Integer withPin;
 
-    @NotNull(message = "error.price.without.pin.empty")
-    @Min(value = 1, message = "error.price.without.pin.min")
-    @Max(value = 10000, message = "error.price.without.pin.max")
+    @NotNull(message = "Цена без закрепа не может быть пустой")
+    @Min(value = 1, message = "Минимальная цена - 1")
+    @Max(value = 10000, message = "Максимальная цена - 10000")
     private Integer withoutPin;
 
 }

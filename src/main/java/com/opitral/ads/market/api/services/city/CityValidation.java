@@ -22,14 +22,14 @@ public class CityValidation extends BaseValidator<CityEntity> {
     public void validForCreate(CityEntity entity) {
         super.validForCreate(entity);
         if (cityRepository.existsByNameAndSubjectId(entity.getName(), entity.getSubjectId()))
-            throw new ValidationException(SubjectEntity.class.getName(), "error.city.name.unique");
+            throw new ValidationException(SubjectEntity.class.getName(), "Название города уже используется в этом направлении");
     }
 
     @Override
     public void validForUpdate(CityEntity entity) {
         super.validForUpdate(entity);
         if (cityRepository.existsByNameAndSubjectIdAndIdNot(entity.getName(), entity.getSubjectId(), entity.getId()))
-            throw new ValidationException(SubjectEntity.class.getName(), "error.city.name.unique");
+            throw new ValidationException(SubjectEntity.class.getName(), "Название города уже используется в этом направлении");
     }
 
     @Override

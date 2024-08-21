@@ -23,14 +23,14 @@ public class SubjectValidation extends BaseValidator<SubjectEntity> {
     public void validForCreate(SubjectEntity entity) {
         super.validForCreate(entity);
         if (subjectRepository.existsByName(entity.getName()))
-            throw new ValidationException(SubjectEntity.class.getName(), "error.subject.name.unique");
+            throw new ValidationException(SubjectEntity.class.getName(), "Напрпавление с таким именем уже созданно");
     }
 
     @Override
     public void validForUpdate(SubjectEntity entity) {
         super.validForUpdate(entity);
         if (subjectRepository.existsByNameAndIdNot(entity.getName(), entity.getId()))
-            throw new ValidationException(SubjectEntity.class.getName(), "error.subject.name.unique");
+            throw new ValidationException(SubjectEntity.class.getName(), "Напрпавление с таким именем уже созданно");
     }
 
     @Override

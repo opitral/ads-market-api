@@ -25,23 +25,19 @@ public class UserEntity implements Serializable, GettableById {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull(message = "error.user.telegram.id.empty")
-    @Size(min = 9, max = 12, message = "error.user.telegram.id.size")
+    @NotNull(message = "Telegram ID пользователя не может быть пустым")
     private String telegramId;
 
-    @Size(max = 250, message = "error.first.name.size")
     private String firstName;
 
-    @Size(max = 250, message = "error.last.name.size")
     private String lastName;
 
-    @Size(max = 250, message = "error.username.size")
     private String username;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<GroupEntity> groups;
 
-    @NotNull(message = "error.user.allowed.groups.count.empty")
+    @NotNull(message = "Количество разрешенных групп не должно быть пустым")
     private Integer allowedGroupsCount;
 
     @Builder.Default

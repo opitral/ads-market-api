@@ -25,15 +25,15 @@ public class PostValidation extends BaseValidator<PostEntity> {
         super.validForCreate(entity);
 
         if (entity.getPublishDate().isBefore(LocalDate.now())) {
-            throw new ValidationException(PostEntity.class.getName(), "error.publish.date.before.now");
+            throw new ValidationException(PostEntity.class.getName(), "Дата находится в прошлом");
         }
 
         if (entity.getPublishTime().isBefore(LocalTime.now())) {
-            throw new ValidationException(PostEntity.class.getName(), "error.publish.time.before.now");
+            throw new ValidationException(PostEntity.class.getName(), "Время находится в прошлом");
         }
 
         if (postRepository.existsByGroupIdAndPublishDateAndPublishTime(entity.getGroup().getId(), entity.getPublishDate(), entity.getPublishTime())) {
-            throw new ValidationException(PostEntity.class.getName(), "error.post.datetime.exists");
+            throw new ValidationException(PostEntity.class.getName(), "Дата и время заняты");
         }
     }
 

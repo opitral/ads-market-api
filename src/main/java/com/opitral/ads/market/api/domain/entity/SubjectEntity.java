@@ -25,8 +25,8 @@ public class SubjectEntity implements Serializable, GettableById {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull(message = "error.subject.name.empty")
-    @Size(max = 250, message = "error.subject.name.size")
+    @NotNull(message = "Название направления не может быть пустым")
+    @Size(max = 250, message = "Название напрвления должно содержать не более 250 символов")
     private String name;
 
     @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true)

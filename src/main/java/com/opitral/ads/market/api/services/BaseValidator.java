@@ -25,7 +25,7 @@ public abstract class BaseValidator<E extends GettableById> implements IValidato
     @Override
     public void validForCreate(E entity) {
         if (entity.compareId(0) > 0) {
-            throw new ValidationException(persistentClass.getName(), "errors.EntityCreateException.id.create");
+            throw new ValidationException(persistentClass.getName(), "Мы не может создать сущность с id");
         }
 
         Set<ConstraintViolation<E>> violations = validator.validate(entity);
@@ -37,7 +37,7 @@ public abstract class BaseValidator<E extends GettableById> implements IValidato
     @Override
     public void validForUpdate(E entity) {
         if (entity.compareId(0) == 0) {
-            throw new ValidationException(persistentClass.getName(), "errors.EntityCreateException.id.update");
+            throw new ValidationException(persistentClass.getName(), "Мы не может обновить сущность без id");
         }
         Set<ConstraintViolation<E>> violations = validator.validate(entity);
         if (violations != null && !violations.isEmpty()) {

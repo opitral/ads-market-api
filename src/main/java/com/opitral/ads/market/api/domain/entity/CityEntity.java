@@ -24,14 +24,14 @@ public class CityEntity implements Serializable, GettableById {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull(message = "error.city.name.empty")
-    @Size(max = 250, message = "error.city.name.size")
+    @NotNull(message = "Название города не должно быть пустым")
+    @Size(max = 250, message = "Название города должно содержать не более 50 символов")
     private String name;
 
     @Column(name = "subject_id", insertable = false, updatable = false)
     private Integer subjectId;
 
-    @NotNull(message = "error.city.subject.empty")
+    @NotNull(message = "Напрвление не должно быть пустым")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "subject_id")
     private SubjectEntity subject;

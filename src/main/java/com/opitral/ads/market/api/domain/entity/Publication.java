@@ -19,14 +19,14 @@ import com.opitral.ads.market.api.domain.enums.PostType;
 @Embeddable
 public class Publication {
 
-    @NotNull(message = "error.post.type.empty")
+    @NotNull(message = "Тип поста не может быть пустым")
     @Enumerated(EnumType.STRING)
     private PostType type;
 
-    @Size(max = 255, message = "error.post.file.id.size")
+    @Size(max = 255, message = "Идентификор файла доджен содержать не более 255 символов")
     private String fileId;
 
-    @Size(max = 500, message = "error.post.text.size")
+    @Size(max = 500, message = "Текст поста должен содержать не более 500 символов")
     private String text;
 
     @Valid

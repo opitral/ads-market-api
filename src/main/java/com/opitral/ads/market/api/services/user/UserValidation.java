@@ -26,7 +26,7 @@ public class UserValidation extends BaseValidator<UserEntity> {
         Optional<UserEntity> foundUser = userRepository.findByTelegramId(entity.getTelegramId());
 
         if (foundUser.isPresent()) {
-            throw new ValidationException(UserEntity.class.getName(), "error.TelegramIdExistsException");
+            throw new ValidationException(UserEntity.class.getName(), "Пользователь с таким Telegram ID уже существует");
         }
     }
 

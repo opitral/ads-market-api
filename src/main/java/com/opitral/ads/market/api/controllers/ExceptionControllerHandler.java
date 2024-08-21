@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.multipart.support.MissingServletRequestPartException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
-import static org.springframework.context.i18n.LocaleContextHolder.getLocale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +30,8 @@ import com.opitral.ads.market.api.common.response.Response;
 import com.opitral.ads.market.api.common.response.ResponseError;
 import com.opitral.ads.market.api.exception.ParsingException;
 import com.opitral.ads.market.api.utils.FixedLoggerNames;
+
+import static org.springframework.context.i18n.LocaleContextHolder.getLocale;
 
 @Slf4j
 @RestControllerAdvice
@@ -108,8 +109,8 @@ public class ExceptionControllerHandler {
 
     @ExceptionHandler(Exception.class)
     public Response<?> handle(Exception e) {
-        log.error("Internal error", e);
-        errorLogger.error("Internal error", e);
+        log.error("Internal Server Error", e);
+        errorLogger.error("Internal Server Error", e);
         return Response.of(new ResponseError(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Internal error"));
     }
 
