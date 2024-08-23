@@ -9,7 +9,6 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Data
-public class ScheduleResponse {
-    private GroupResponse group;
-    private List<WeekResponse> weeks;
+public class WeekResponse {
+    private List<DayResponse> days;
 }

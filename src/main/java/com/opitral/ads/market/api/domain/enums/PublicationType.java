@@ -1,6 +1,6 @@
 package com.opitral.ads.market.api.domain.enums;
 
-public enum PostType {
+public enum PublicationType {
     PHOTO,
     VIDEO,
     ANIMATION,

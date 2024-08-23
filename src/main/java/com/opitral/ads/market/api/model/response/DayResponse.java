@@ -1,19 +1,16 @@
 package com.opitral.ads.market.api.model.response;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
-import com.opitral.ads.market.api.domain.enums.DateTimeStatus;
-
 @AllArgsConstructor
 @Builder
 @Data
-public class ScheduleDateTimeResponse {
+public class DayResponse {
     private LocalDate date;
-    private LocalTime time;
-    private DateTimeStatus status;
+    private List<TimeResponse> times;
 }

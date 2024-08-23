@@ -34,7 +34,8 @@ public class ScheduleTest extends BaseTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.result.group.id").value(group.getId()))
-                .andExpect(jsonPath("$.result.dateTimes").isArray())
+                .andExpect(jsonPath("$.result.weeks").isArray())
+                .andExpect(jsonPath("$.result.weeks[0].week").isArray())
                 .andExpect(jsonPath("$.error").isEmpty());
     }
 }
