@@ -3,7 +3,8 @@ package com.opitral.ads.market.api.utils;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import com.opitral.ads.market.api.domain.enums.PostType;
+import com.opitral.ads.market.api.domain.enums.PostStatus;
+import com.opitral.ads.market.api.domain.enums.PublicationType;
 import jakarta.persistence.EntityManagerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,8 @@ public class BaseTest {
 
     public final ObjectMapper mapper = new ObjectMapper();
 
+    boolean cleaning = false;
+
     @Autowired
     protected SubjectRepository subjectRepository;
     @Autowired
@@ -52,11 +55,13 @@ public class BaseTest {
 
     @AfterEach
     public void cleaning() {
-        subjectRepository.deleteAll();
-        cityRepository.deleteAll();
-        userRepository.deleteAll();
-        groupRepository.deleteAll();
-        postRepository.deleteAll();
+        if (cleaning) {
+            subjectRepository.deleteAll();
+            cityRepository.deleteAll();
+            userRepository.deleteAll();
+            groupRepository.deleteAll();
+            postRepository.deleteAll();
+        }
     }
 
     public SubjectEntity createSubject() {
@@ -112,7 +117,7 @@ public class BaseTest {
         PostEntity postEntity = new PostEntity();
         postEntity.setPublication(
                 new Publication(
-                        PostType.PHOTO,
+                        PublicationType.PHOTO,
                         getRandomString(10),
                         getRandomString(10),
                         new Button(
@@ -124,8 +129,10 @@ public class BaseTest {
         postEntity.setGroup(groupRepository.findById(groupId).orElseThrow(
                 () -> new NoSuchEntityException(PostEntity.class.getName(), "by id: " + groupId)
         ));
+        postEntity.setGroupTelegramId(postEntity.getGroup().getGroupTelegramId());
         postEntity.setPublishDate(LocalDate.now());
         postEntity.setPublishTime(LocalTime.now().plusHours(1));
+        postEntity.setStatus(PostStatus.AWAITS);
         postRepository.save(postEntity);
         return postEntity;
     }

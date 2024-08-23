@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import com.opitral.ads.market.api.domain.enums.PostStatus;
 import lombok.*;
 
 import jakarta.persistence.*;
@@ -32,10 +33,19 @@ public class PostEntity implements Serializable, GettableById {
     @JoinColumn(name = "group_id", nullable = false)
     private GroupEntity group;
 
+    @NotNull(message = "Telegram ID группы не может быть пустым")
+    private String groupTelegramId;
+
     @NotNull(message = "Дата публикации поста не может быть пустой")
     private LocalDate publishDate;
 
     @NotNull(message = "Время публикации поста не может быть пустым")
     private LocalTime publishTime;
+
+    @NotNull(message = "Статус поста не может быть пустым")
+    @Enumerated(EnumType.STRING)
+    private PostStatus status;
+
+    private Integer messageId;
 
 }

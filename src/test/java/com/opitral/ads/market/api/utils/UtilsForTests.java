@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Random;
 
+import com.opitral.ads.market.api.domain.enums.PostStatus;
+import com.opitral.ads.market.api.domain.enums.PublicationType;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 
@@ -12,7 +14,6 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.opitral.ads.market.api.model.view.*;
-import com.opitral.ads.market.api.domain.enums.PostType;
 
 @Service
 @RequiredArgsConstructor
@@ -83,7 +84,7 @@ public class UtilsForTests {
         postView.setGroupId(groupId);
         postView.setPublication(
                 new PublicationView(
-                        PostType.PHOTO,
+                        PublicationType.PHOTO,
                         getRandomString(10),
                         getRandomString(10),
                         new ButtonView(
@@ -94,6 +95,7 @@ public class UtilsForTests {
         );
         postView.setPublishDate(LocalDate.now());
         postView.setPublishTime(LocalTime.now().plusHours(1));
+        postView.setStatus(PostStatus.AWAITS);
         return postView;
     }
 }

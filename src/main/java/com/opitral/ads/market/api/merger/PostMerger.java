@@ -12,6 +12,8 @@ import com.opitral.ads.market.api.exception.NoSuchEntityException;
 import com.opitral.ads.market.api.model.view.PostView;
 import com.opitral.ads.market.api.repositories.GroupRepository;
 
+import java.time.LocalTime;
+
 @Component
 @RequiredArgsConstructor
 public class PostMerger implements Merger<PostEntity, PostView> {
@@ -43,15 +45,26 @@ public class PostMerger implements Merger<PostEntity, PostView> {
                         )
                     ));
 
-        if (view.getGroupId() != null)
+        if (view.getGroupId() != null) {
             entity.setGroup(groupRepository.findById(view.getGroupId()).orElseThrow(
                     () -> new NoSuchEntityException(GroupEntity.class.getName(), "by id: " + view.getGroupId())
             ));
+            entity.setGroupTelegramId(entity.getGroup().getGroupTelegramId());
+        }
 
         if (view.getPublishDate() != null)
             entity.setPublishDate(view.getPublishDate());
 
-        if (view.getPublishTime() != null)
-            entity.setPublishTime(view.getPublishTime());
+        if (view.getPublishTime() != null) {
+            entity.setPublishTime(view.getPublishTime().withSecond(0));
+        }
+
+        if (view.getStatus() != null) {
+            entity.setStatus(view.getStatus());
+        }
+
+        if (view.getMessageId() != null) {
+            entity.setMessageId(view.getMessageId());
+        }
     }
 }

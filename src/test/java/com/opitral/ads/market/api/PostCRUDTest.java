@@ -121,6 +121,8 @@ public class PostCRUDTest extends BaseTest {
                 .andExpect(jsonPath("$.result.publication.button.url").value(post.getPublication().getButton().getUrl()))
                 .andExpect(jsonPath("$.result.publishDate").value(post.getPublishDate().toString()))
                 .andExpect(jsonPath("$.result.publishTime").value(post.getPublishTime().format(DateTimeFormatter.ofPattern("HH:mm"))))
+                .andExpect(jsonPath("$.result.status").value(post.getStatus().toString()))
+                .andExpect(jsonPath("$.result.messageId").value(post.getMessageId()))
                 .andExpect(jsonPath("$.error").isEmpty());
     }
 
@@ -151,6 +153,8 @@ public class PostCRUDTest extends BaseTest {
                 .andExpect(jsonPath("$.result.responseList[0].publication.button.name").value(post.getPublication().getButton().getName()))
                 .andExpect(jsonPath("$.result.responseList[0].publication.button.url").value(post.getPublication().getButton().getUrl()))
                 .andExpect(jsonPath("$.result.responseList[0].publishDate").value(post.getPublishDate().toString()))
-                .andExpect(jsonPath("$.result.responseList[0].publishTime").value(post.getPublishTime().format(DateTimeFormatter.ofPattern("HH:mm"))));
+                .andExpect(jsonPath("$.result.responseList[0].publishTime").value(post.getPublishTime().format(DateTimeFormatter.ofPattern("HH:mm"))))
+                .andExpect(jsonPath("$.result.responseList[0].status").value(post.getStatus().toString()))
+                .andExpect(jsonPath("$.result.responseList[0].messageId").value(post.getMessageId()));
     }
 }

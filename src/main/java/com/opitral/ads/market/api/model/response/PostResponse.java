@@ -1,5 +1,6 @@
 package com.opitral.ads.market.api.model.response;
 
+import com.opitral.ads.market.api.domain.enums.PostStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,10 +19,15 @@ public class PostResponse {
     private Integer id;
     private PublicationResponse publication;
     private Integer groupId;
+    private String groupTelegramId;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate publishDate;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime publishTime;
+
+    private PostStatus status;
+
+    private Integer messageId;
 }

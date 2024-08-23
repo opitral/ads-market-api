@@ -7,14 +7,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import com.opitral.ads.market.api.domain.enums.PostType;
+import com.opitral.ads.market.api.domain.enums.PublicationType;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class PublicationView implements Serializable {
-    private PostType type;
+    private PublicationType type;
     private String fileId;
     private String text;
     private ButtonView button;

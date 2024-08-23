@@ -1,5 +1,6 @@
 package com.opitral.ads.market.api.domain.entity;
 
+import com.opitral.ads.market.api.domain.enums.PublicationType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,8 +12,6 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import com.opitral.ads.market.api.domain.enums.PostType;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,7 +20,7 @@ public class Publication {
 
     @NotNull(message = "Тип поста не может быть пустым")
     @Enumerated(EnumType.STRING)
-    private PostType type;
+    private PublicationType type;
 
     @Size(max = 255, message = "Идентификор файла доджен содержать не более 255 символов")
     private String fileId;
