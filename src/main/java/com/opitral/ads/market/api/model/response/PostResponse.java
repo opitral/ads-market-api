@@ -1,15 +1,17 @@
 package com.opitral.ads.market.api.model.response;
 
-import com.opitral.ads.market.api.domain.enums.PostStatus;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+import com.opitral.ads.market.api.domain.enums.PostStatus;
+
 
 @Data
 @NoArgsConstructor

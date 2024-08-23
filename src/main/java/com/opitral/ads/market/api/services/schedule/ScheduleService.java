@@ -5,7 +5,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.opitral.ads.market.api.model.response.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,6 +19,8 @@ import com.opitral.ads.market.api.exception.NoSuchEntityException;
 import com.opitral.ads.market.api.repositories.GroupRepository;
 import com.opitral.ads.market.api.repositories.PostRepository;
 import com.opitral.ads.market.api.services.group.GroupService;
+import com.opitral.ads.market.api.model.response.*;
+
 
 @Service
 @Slf4j
@@ -63,7 +64,7 @@ public class ScheduleService {
                         .build());
             }
             weeks.add(WeekResponse.builder()
-                    .week(days)
+                    .days(days)
                     .build());
         }
 

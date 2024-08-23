@@ -1,14 +1,13 @@
 package com.opitral.ads.market.api.domain.entity;
 
 import java.io.Serializable;
-import java.time.Instant;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.validation.Valid;
 import lombok.*;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.persistence.*;

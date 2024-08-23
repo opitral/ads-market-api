@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import com.opitral.ads.market.api.domain.enums.PostStatus;
 import lombok.*;
 
 import jakarta.persistence.*;
@@ -12,6 +11,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 import com.opitral.ads.market.api.common.helpers.GettableById;
+import com.opitral.ads.market.api.domain.enums.PostStatus;
 
 @Setter
 @Getter

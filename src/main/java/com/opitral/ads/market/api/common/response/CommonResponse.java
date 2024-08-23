@@ -5,8 +5,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class CommonResponse {
-    private CommonResponse() {
-    }
+    private CommonResponse() {}
 
     public static final class PageListMapResponse extends Response<PageResult<Map<String, Object>>> {
         public PageListMapResponse() {}

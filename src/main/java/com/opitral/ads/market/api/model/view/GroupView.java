@@ -3,11 +3,12 @@ package com.opitral.ads.market.api.model.view;
 import java.io.Serializable;
 import java.time.LocalTime;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import com.opitral.ads.market.api.common.helpers.GettableById;
 

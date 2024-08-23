@@ -1,11 +1,12 @@
 package com.opitral.ads.market.api.model.response;
 
-import com.opitral.ads.market.api.domain.enums.ScheduleStatus;
+import java.time.LocalTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
-import java.time.LocalTime;
+import com.opitral.ads.market.api.domain.enums.ScheduleStatus;
 
 @AllArgsConstructor
 @Builder

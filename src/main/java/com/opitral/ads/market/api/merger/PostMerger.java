@@ -12,8 +12,6 @@ import com.opitral.ads.market.api.exception.NoSuchEntityException;
 import com.opitral.ads.market.api.model.view.PostView;
 import com.opitral.ads.market.api.repositories.GroupRepository;
 
-import java.time.LocalTime;
-
 @Component
 @RequiredArgsConstructor
 public class PostMerger implements Merger<PostEntity, PostView> {

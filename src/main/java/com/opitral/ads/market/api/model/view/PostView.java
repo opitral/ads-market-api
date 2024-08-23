@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import com.opitral.ads.market.api.domain.enums.PostStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,6 +12,7 @@ import lombok.NoArgsConstructor;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import com.opitral.ads.market.api.common.helpers.GettableById;
+import com.opitral.ads.market.api.domain.enums.PostStatus;
 
 @Data
 @NoArgsConstructor
