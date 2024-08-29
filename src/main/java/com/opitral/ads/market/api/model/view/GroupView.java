@@ -26,9 +26,9 @@ public class GroupView implements Serializable, GettableById {
     private String userTelegramId;
     private Integer cityId;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime workingHoursStart;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime workingHoursEnd;
     private Integer postIntervalInMinutes;
 

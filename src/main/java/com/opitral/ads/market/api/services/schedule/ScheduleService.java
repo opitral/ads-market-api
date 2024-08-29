@@ -73,19 +73,34 @@ public class ScheduleService {
 
     private List<TimeResponse> buildTimeResponses(GroupEntity group, LocalDate date) {
         List<TimeResponse> times = new ArrayList<>();
-        LocalTime time = group.getWorkingHoursStart();
+        LocalTime startTime = group.getWorkingHoursStart();
+        LocalTime endTime = group.getWorkingHoursEnd();
 
-        while (!time.isAfter(group.getWorkingHoursEnd())) {
-            ScheduleStatus status = determineStatus(group, date, time);
-            times.add(TimeResponse.builder()
-                    .time(time)
-                    .status(status)
-                    .build());
-            time = time.plusMinutes(group.getPostIntervalInMinutes());
+        if (startTime.equals(LocalTime.MIDNIGHT) && endTime.equals(LocalTime.MIDNIGHT)) {
+            LocalTime time = LocalTime.MIDNIGHT;
+            while (!time.equals(LocalTime.MIDNIGHT) || times.isEmpty()) {
+                ScheduleStatus status = determineStatus(group, date, time);
+                times.add(TimeResponse.builder()
+                        .time(time)
+                        .status(status)
+                        .build());
+                time = time.plusMinutes(group.getPostIntervalInMinutes());
+            }
+        } else {
+            LocalTime time = startTime;
+            while (!time.isAfter(endTime)) {
+                ScheduleStatus status = determineStatus(group, date, time);
+                times.add(TimeResponse.builder()
+                        .time(time)
+                        .status(status)
+                        .build());
+                time = time.plusMinutes(group.getPostIntervalInMinutes());
+            }
         }
 
         return times;
     }
+
 
     private ScheduleStatus determineStatus(GroupEntity group, LocalDate date, LocalTime time) {
         if (!date.isAfter(LocalDate.now()) && time.isBefore(LocalTime.now())) {
