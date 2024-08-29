@@ -10,6 +10,6 @@ import lombok.Builder;
 @AllArgsConstructor
 @Builder
 public class PriceView {
-    private Integer withPin;
     private Integer withoutPin;
+    private Integer withPin;
 }

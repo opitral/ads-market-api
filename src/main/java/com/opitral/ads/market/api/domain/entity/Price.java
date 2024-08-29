@@ -15,14 +15,14 @@ import jakarta.validation.constraints.NotNull;
 @Embeddable
 public class Price {
 
-    @NotNull(message = "Цена с закрепом не может быть пустой")
-    @Min(value = 1, message = "Минимальная цена - 1")
-    @Max(value = 10000, message = "Максимальная цена - 10000")
-    private Integer withPin;
-
     @NotNull(message = "Цена без закрепа не может быть пустой")
     @Min(value = 1, message = "Минимальная цена - 1")
     @Max(value = 10000, message = "Максимальная цена - 10000")
     private Integer withoutPin;
+
+    @NotNull(message = "Цена с закрепом не может быть пустой")
+    @Min(value = 1, message = "Минимальная цена - 1")
+    @Max(value = 10000, message = "Максимальная цена - 10000")
+    private Integer withPin;
 
 }
