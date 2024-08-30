@@ -1,0 +1,31 @@
+# Виключення директорій з вихідними файлами і тимчасовими даними
+target/
+build/
+.gradle/
+.mvn/
+!target/*.jar
+
+# Виключення файлів конфігурацій для локального середовища
+*.iml
+*.idea/
+*.project
+*.classpath
+.DS_Store
+*.log
+*.tmp
+*.swp
+
+# Виключення файлів залежностей
+*.jar
+*.war
+*.zip
+*.tar
+*.tgz
+
+# Виключення Docker файлів
+Dockerfile
+docker-compose.yml
+
+# Виключення файлів .git
+.git/
+.gitignore
