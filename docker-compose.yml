@@ -11,6 +11,7 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    restart: always
 
   app:
     image: ads-market-api:latest
@@ -25,6 +26,7 @@ services:
       - "8080:8080"
     depends_on:
       - db
+    restart: always
 
 volumes:
   postgres_data:
