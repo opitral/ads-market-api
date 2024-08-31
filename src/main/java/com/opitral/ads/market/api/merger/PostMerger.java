@@ -32,16 +32,19 @@ public class PostMerger implements Merger<PostEntity, PostView> {
     }
 
     private void mergeMainFields(PostEntity entity, PostView view) {
-        if (view.getPublication() != null)
+        if (view.getPublication() != null) {
+            Button button = view.getPublication().getButton() != null ? new Button(
+                    view.getPublication().getButton().getName(),
+                    view.getPublication().getButton().getUrl()
+            ) : null;
+
             entity.setPublication(new Publication(
-                        view.getPublication().getType(),
-                        view.getPublication().getFileId(),
-                        view.getPublication().getText(),
-                        new Button(
-                            view.getPublication().getButton().getName(),
-                            view.getPublication().getButton().getUrl()
-                        )
-                    ));
+                view.getPublication().getType(),
+                view.getPublication().getFileId(),
+                view.getPublication().getText(),
+                button
+            ));
+        }
 
         if (view.getGroupId() != null) {
             entity.setGroup(groupRepository.findById(view.getGroupId()).orElseThrow(
