@@ -5,10 +5,6 @@ RUN mvn -f /app/pom.xml clean package -Dmaven.test.skip=true
 
 FROM openjdk:17-jdk-slim
 WORKDIR /app
-
-ENV TZ=Europe/Kyiv
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
 COPY --from=builder /app/target/*.jar /app/*.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-Duser.timezone=Europe/Kyiv", "-jar", "/app/*.jar"]
+ENTRYPOINT ["java", "-Duser.timezone=Europe/Kiev", "-jar", "/app/*.jar"]
