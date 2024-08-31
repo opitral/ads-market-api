@@ -76,10 +76,10 @@ public class PostService extends BaseService<PostEntity, PostView> {
                 .fileId(obj.getFileId())
                 .text(obj.getText())
                 .button(
-                        new ButtonResponse(
+                        obj.getButton() != null ? new ButtonResponse(
                                 obj.getButton().getName(),
                                 obj.getButton().getUrl()
-                        )
+                        ) : null
                 )
                 .build();
     }
