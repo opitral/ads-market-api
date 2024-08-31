@@ -23,6 +23,8 @@ public class PostResponse {
     private Integer groupId;
     private String groupTelegramId;
 
+    private Boolean withPin;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate publishDate;
 

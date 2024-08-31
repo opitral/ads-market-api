@@ -36,6 +36,9 @@ public class PostEntity implements Serializable, GettableById {
     @NotNull(message = "Telegram ID группы не может быть пустым")
     private String groupTelegramId;
 
+    @NotNull(message = "Флаг закрепленного сообщения не может быть пустым")
+    private Boolean withPin;
+
     @NotNull(message = "Дата публикации поста не может быть пустой")
     private LocalDate publishDate;
 

@@ -23,6 +23,8 @@ public class PostView implements Serializable, GettableById {
     private PublicationView publication;
     private Integer groupId;
 
+    private Boolean withPin;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate publishDate;
 

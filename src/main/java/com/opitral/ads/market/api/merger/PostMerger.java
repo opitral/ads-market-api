@@ -53,8 +53,13 @@ public class PostMerger implements Merger<PostEntity, PostView> {
             entity.setGroupTelegramId(entity.getGroup().getGroupTelegramId());
         }
 
-        if (view.getPublishDate() != null)
+        if (view.getWithPin() != null) {
+            entity.setWithPin(view.getWithPin());
+        }
+
+        if (view.getPublishDate() != null) {
             entity.setPublishDate(view.getPublishDate());
+        }
 
         if (view.getPublishTime() != null) {
             entity.setPublishTime(view.getPublishTime().withSecond(0));

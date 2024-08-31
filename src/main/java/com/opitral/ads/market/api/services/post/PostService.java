@@ -62,6 +62,7 @@ public class PostService extends BaseService<PostEntity, PostView> {
                 .id(entity.getId())
                 .groupId(entity.getGroup().getId())
                 .groupTelegramId(entity.getGroupTelegramId())
+                .withPin(entity.getWithPin())
                 .publication(buildPublicationResponseDto(entity.getPublication()))
                 .publishDate(entity.getPublishDate())
                 .publishTime(entity.getPublishTime())
