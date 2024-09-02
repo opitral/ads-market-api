@@ -20,15 +20,12 @@ public class PostValidation extends BaseValidator<PostEntity> {
         this.postRepository = postRepository;
     }
 
-    @Override
-    public void validForCreate(PostEntity entity) {
-        super.validForCreate(entity);
-
+    private void baseValid(PostEntity entity) {
         if (entity.getPublishDate().isBefore(LocalDate.now())) {
             throw new ValidationException(PostEntity.class.getName(), "Дата находится в прошлом");
         }
 
-        if (entity.getPublishTime().isBefore(LocalTime.now())) {
+        if (!entity.getPublishDate().isAfter(LocalDate.now()) && entity.getPublishTime().isBefore(LocalTime.now())) {
             throw new ValidationException(PostEntity.class.getName(), "Время находится в прошлом");
         }
 
@@ -38,8 +35,15 @@ public class PostValidation extends BaseValidator<PostEntity> {
     }
 
     @Override
+    public void validForCreate(PostEntity entity) {
+        super.validForCreate(entity);
+        baseValid(entity);
+    }
+
+    @Override
     public void validForUpdate(PostEntity entity) {
         super.validForUpdate(entity);
+        baseValid(entity);
     }
 
     @Override
