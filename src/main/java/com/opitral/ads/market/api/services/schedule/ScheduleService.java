@@ -1,6 +1,7 @@
 package com.opitral.ads.market.api.services.schedule;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -76,26 +77,22 @@ public class ScheduleService {
         LocalTime startTime = group.getWorkingHoursStart();
         LocalTime endTime = group.getWorkingHoursEnd();
 
-        if (startTime.equals(LocalTime.MIDNIGHT) && endTime.equals(LocalTime.MIDNIGHT)) {
-            LocalTime time = LocalTime.MIDNIGHT;
-            while (!time.equals(LocalTime.MIDNIGHT) || times.isEmpty()) {
-                ScheduleStatus status = determineStatus(group, date, time);
-                times.add(TimeResponse.builder()
-                        .time(time)
-                        .status(status)
-                        .build());
-                time = time.plusMinutes(group.getPostIntervalInMinutes());
-            }
-        } else {
-            LocalTime time = startTime;
-            while (!time.isAfter(endTime)) {
-                ScheduleStatus status = determineStatus(group, date, time);
-                times.add(TimeResponse.builder()
-                        .time(time)
-                        .status(status)
-                        .build());
-                time = time.plusMinutes(group.getPostIntervalInMinutes());
-            }
+        LocalDateTime startDateTime = LocalDateTime.of(date, startTime);
+        LocalDateTime endDateTime = LocalDateTime.of(date, endTime);
+
+        LocalDateTime tempDateTime = startDateTime;
+
+        if (endTime.equals(LocalTime.MIDNIGHT)) {
+            endDateTime = endDateTime.plusDays(1);
+        }
+
+        while (tempDateTime.isBefore(endDateTime)) {
+            ScheduleStatus status = determineStatus(group, date, tempDateTime.toLocalTime());
+            times.add(TimeResponse.builder()
+                    .time(tempDateTime.toLocalTime())
+                    .status(status)
+                    .build());
+            tempDateTime = tempDateTime.plusMinutes(group.getPostIntervalInMinutes());
         }
 
         return times;
