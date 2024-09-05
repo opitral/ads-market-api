@@ -14,10 +14,7 @@ services:
     restart: always
 
   app:
-    image: ads-market-api:latest
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: .
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/ads-market-api
       SPRING_DATASOURCE_USERNAME: user
