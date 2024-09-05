@@ -26,6 +26,7 @@ public class Publication {
     @Size(max = 255, message = "Идентификор файла доджен содержать не более 255 символов")
     private String fileId;
 
+    @Size(max = 4096, message = "Текст поста должен содержать не более 4096 символов")
     private String text;
 
     @Valid
