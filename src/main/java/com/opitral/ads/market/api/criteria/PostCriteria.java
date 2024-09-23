@@ -26,6 +26,7 @@ public class PostCriteria extends Criteria<PostEntity> {
     private LocalTime publishTime;
     private PostStatus status;
     private String groupTelegramId;
+    private Integer messageId;
 
     public PostCriteria() { super(PostEntity.class); }
 
@@ -40,6 +41,7 @@ public class PostCriteria extends Criteria<PostEntity> {
             this.publishTime = parsed.publishTime;
             this.status = parsed.status;
             this.groupTelegramId = parsed.groupTelegramId;
+            this.messageId = parsed.messageId;
         }
     }
 
@@ -61,6 +63,9 @@ public class PostCriteria extends Criteria<PostEntity> {
 
         if (groupTelegramId != null)
             predicates.add(cb.equal(root.get(PostEntity_.groupTelegramId), groupTelegramId));
+
+        if (messageId != null)
+            predicates.add(cb.equal(root.get(PostEntity_.messageId), messageId));
 
         return predicates;
     }
