@@ -1,5 +1,6 @@
 package com.opitral.ads.market.api.services.post;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,11 +51,14 @@ public class PostService extends BaseService<PostEntity, PostView> {
     }
 
     public PostListResponse getAllPosts(String restrict) {
-        List<PostResponse> responseList = getList(parse(restrict)).stream()
+        List<PostResponse> responseList;
+
+        responseList = getList(parse(restrict)).stream()
+                .filter(this::existPostFromToday)
                 .map(this::buildPostResponseDto)
                 .collect(Collectors.toList());
 
-        return new PostListResponse(count(restrict), responseList);
+        return new PostListResponse((long) responseList.size(), responseList);
     }
 
     public PostResponse buildPostResponseDto(PostEntity entity) {
@@ -83,5 +87,10 @@ public class PostService extends BaseService<PostEntity, PostView> {
                         ) : null
                 )
                 .build();
+    }
+
+    public Boolean existPostFromToday(PostEntity entity) {
+        LocalDate today = LocalDate.now();
+        return !entity.getPublishDate().isBefore(today);
     }
 }
