@@ -5,7 +5,7 @@ spring:
   application:
     name: ads-market-api
   datasource:
-    url: jdbc:postgresql://localhost/ads-market-api
+    url: jdbc:postgresql://185.126.115.203:5432/ads-market-api
     username: user
     password: password
     driver-class-name: org.postgresql.Driver
