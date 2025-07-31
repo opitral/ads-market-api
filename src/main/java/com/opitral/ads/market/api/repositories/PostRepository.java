@@ -1,10 +1,10 @@
 package com.opitral.ads.market.api.repositories;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.util.List;
 
 import com.opitral.ads.market.api.domain.entity.PostEntity;
 
 public interface PostRepository extends BaseRepository<PostEntity> {
-    boolean existsByGroupIdAndPublishDateAndPublishTime(Integer groupId, LocalDate publishDate, LocalTime publishTime);
+    List<PostEntity> findAllByGroupIdAndPublishDateBetween(Integer groupId, LocalDate startDate, LocalDate endDate);
 }

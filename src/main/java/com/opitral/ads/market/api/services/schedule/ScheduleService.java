@@ -5,7 +5,11 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import com.opitral.ads.market.api.domain.entity.PostEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,7 +42,12 @@ public class ScheduleService {
 
     public ScheduleResponse getSchedule(Integer groupId) {
         GroupEntity group = getGroupById(groupId);
-        List<WeekResponse> weeks = buildWeekResponses(group);
+
+        LocalDate startDate = LocalDate.now();
+        LocalDate endDate = startDate.plusDays(WEEKS_COUNT * DAYS_IN_WEEK);
+        Map<LocalDate, Set<LocalTime>> busySlots = loadBusySlots(group.getId(), startDate, endDate);
+
+        List<WeekResponse> weeks = buildWeekResponses(group, busySlots, startDate);
 
         return ScheduleResponse.builder()
                 .group(groupService.buildGroupResponseDto(group))
@@ -51,14 +60,25 @@ public class ScheduleService {
                 .orElseThrow(() -> new NoSuchEntityException(GroupEntity.class.getName(), "by id: " + groupId));
     }
 
-    private List<WeekResponse> buildWeekResponses(GroupEntity group) {
+    private Map<LocalDate, Set<LocalTime>> loadBusySlots(Integer groupId, LocalDate from, LocalDate to) {
+        List<PostEntity> posts = postRepository.findAllByGroupIdAndPublishDateBetween(groupId, from, to);
+        return posts.stream()
+                .collect(Collectors.groupingBy(
+                        PostEntity::getPublishDate,
+                        Collectors.mapping(PostEntity::getPublishTime, Collectors.toSet())
+                ));
+    }
+
+    private List<WeekResponse> buildWeekResponses(GroupEntity group, Map<LocalDate, Set<LocalTime>> busySlots, LocalDate startDate) {
         List<WeekResponse> weeks = new ArrayList<>();
+        LocalDate today = LocalDate.now();
+        LocalTime now = LocalTime.now();
 
         for (int week = 0; week < WEEKS_COUNT; week++) {
             List<DayResponse> days = new ArrayList<>();
             for (int day = 0; day < DAYS_IN_WEEK; day++) {
-                LocalDate date = LocalDate.now().plusDays(week * DAYS_IN_WEEK + day);
-                List<TimeResponse> times = buildTimeResponses(group, date);
+                LocalDate date = startDate.plusDays(week * DAYS_IN_WEEK + day);
+                List<TimeResponse> times = buildTimeResponses(group, date, busySlots, today, now);
                 days.add(DayResponse.builder()
                         .date(date)
                         .times(times)
@@ -72,7 +92,7 @@ public class ScheduleService {
         return weeks;
     }
 
-    private List<TimeResponse> buildTimeResponses(GroupEntity group, LocalDate date) {
+    private List<TimeResponse> buildTimeResponses(GroupEntity group, LocalDate date, Map<LocalDate, Set<LocalTime>> busySlots, LocalDate today, LocalTime now) {
         List<TimeResponse> times = new ArrayList<>();
         LocalTime startTime = group.getWorkingHoursStart();
         LocalTime endTime = group.getWorkingHoursEnd();
@@ -80,32 +100,33 @@ public class ScheduleService {
         LocalDateTime startDateTime = LocalDateTime.of(date, startTime);
         LocalDateTime endDateTime = LocalDateTime.of(date, endTime);
 
-        LocalDateTime tempDateTime = startDateTime;
-
         if (endTime.equals(LocalTime.MIDNIGHT)) {
             endDateTime = endDateTime.plusDays(1);
         }
 
+        LocalDateTime tempDateTime = startDateTime;
+        int interval = group.getPostIntervalInMinutes();
+
         while (tempDateTime.isBefore(endDateTime)) {
-            ScheduleStatus status = determineStatus(group, date, tempDateTime.toLocalTime());
+            LocalTime currentTime = tempDateTime.toLocalTime();
+            ScheduleStatus status;
+
+            if (!date.isAfter(today) && currentTime.isBefore(now)) {
+                status = ScheduleStatus.UNAVAILABLE;
+            } else if (busySlots.getOrDefault(date, Set.of()).contains(currentTime)) {
+                status = ScheduleStatus.BUSY;
+            } else {
+                status = ScheduleStatus.FREE;
+            }
+
             times.add(TimeResponse.builder()
-                    .time(tempDateTime.toLocalTime())
+                    .time(currentTime)
                     .status(status)
                     .build());
-            tempDateTime = tempDateTime.plusMinutes(group.getPostIntervalInMinutes());
+
+            tempDateTime = tempDateTime.plusMinutes(interval);
         }
 
         return times;
-    }
-
-
-    private ScheduleStatus determineStatus(GroupEntity group, LocalDate date, LocalTime time) {
-        if (!date.isAfter(LocalDate.now()) && time.isBefore(LocalTime.now())) {
-            return ScheduleStatus.UNAVAILABLE;
-        } else if (postRepository.existsByGroupIdAndPublishDateAndPublishTime(group.getId(), date, time)) {
-            return ScheduleStatus.BUSY;
-        } else {
-            return ScheduleStatus.FREE;
-        }
     }
 }

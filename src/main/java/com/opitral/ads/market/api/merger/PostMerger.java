@@ -37,12 +37,41 @@ public class PostMerger implements Merger<PostEntity, PostView> {
                     view.getPublication().getButton().getName(),
                     view.getPublication().getButton().getUrl()
             ) : null;
+            Button button2 = view.getPublication().getButton_2() != null ? new Button(
+                    view.getPublication().getButton_2().getName(),
+                    view.getPublication().getButton_2().getUrl()
+            ) : null;
+            Button button3 = view.getPublication().getButton_3() != null ? new Button(
+                    view.getPublication().getButton_3().getName(),
+                    view.getPublication().getButton_3().getUrl()
+            ) : null;
+            Button button4 = view.getPublication().getButton_4() != null ? new Button(
+                    view.getPublication().getButton_4().getName(),
+                    view.getPublication().getButton_4().getUrl()
+            ) : null;
+            Button button5 = view.getPublication().getButton_5() != null ? new Button(
+                    view.getPublication().getButton_5().getName(),
+                    view.getPublication().getButton_5().getUrl()
+            ) : null;
 
             entity.setPublication(new Publication(
-                view.getPublication().getType(),
-                view.getPublication().getFileId(),
-                view.getPublication().getText(),
-                button
+                    view.getPublication().getType(),
+                    view.getPublication().getText(),
+                    view.getPublication().getFileId(),
+                    view.getPublication().getFileId_2(),
+                    view.getPublication().getFileId_3(),
+                    view.getPublication().getFileId_4(),
+                    view.getPublication().getFileId_5(),
+                    view.getPublication().getFileId_6(),
+                    view.getPublication().getFileId_7(),
+                    view.getPublication().getFileId_8(),
+                    view.getPublication().getFileId_9(),
+                    view.getPublication().getFileId_10(),
+                    button,
+                    button2,
+                    button3,
+                    button4,
+                    button5
             ));
         }
 

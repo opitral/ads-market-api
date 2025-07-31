@@ -27,6 +27,30 @@ public class PostEntity implements Serializable, GettableById {
     private Integer id;
 
     @Valid
+    @AttributeOverrides({
+            @AttributeOverride(name = "type", column = @Column(name = "type", nullable = false)),
+            @AttributeOverride(name = "text", column = @Column(name = "text", length = 4096)),
+            @AttributeOverride(name = "fileId", column = @Column(name = "file_id")),
+            @AttributeOverride(name = "fileId_2", column = @Column(name = "file_id_2")),
+            @AttributeOverride(name = "fileId_3", column = @Column(name = "file_id_3")),
+            @AttributeOverride(name = "fileId_4", column = @Column(name = "file_id_4")),
+            @AttributeOverride(name = "fileId_5", column = @Column(name = "file_id_5")),
+            @AttributeOverride(name = "fileId_6", column = @Column(name = "file_id_6")),
+            @AttributeOverride(name = "fileId_7", column = @Column(name = "file_id_7")),
+            @AttributeOverride(name = "fileId_8", column = @Column(name = "file_id_8")),
+            @AttributeOverride(name = "fileId_9", column = @Column(name = "file_id_9")),
+            @AttributeOverride(name = "fileId_10", column = @Column(name = "file_id_10")),
+            @AttributeOverride(name = "button.name", column = @Column(name = "name", length = 50)),
+            @AttributeOverride(name = "button.url", column = @Column(name = "url")),
+            @AttributeOverride(name = "button_2.name", column = @Column(name = "name_2", length = 50)),
+            @AttributeOverride(name = "button_2.url", column = @Column(name = "url_2")),
+            @AttributeOverride(name = "button_3.name", column = @Column(name = "name_3", length = 50)),
+            @AttributeOverride(name = "button_3.url", column = @Column(name = "url_3")),
+            @AttributeOverride(name = "button_4.name", column = @Column(name = "name_4", length = 50)),
+            @AttributeOverride(name = "button_4.url", column = @Column(name = "url_4")),
+            @AttributeOverride(name = "button_5.name", column = @Column(name = "name_5", length = 50)),
+            @AttributeOverride(name = "button_5.url", column = @Column(name = "url_5"))
+    })
     private Publication publication;
 
     @ManyToOne(fetch = FetchType.LAZY)

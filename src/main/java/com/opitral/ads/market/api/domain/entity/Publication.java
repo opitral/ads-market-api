@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -23,13 +22,23 @@ public class Publication {
     @Enumerated(EnumType.STRING)
     private PublicationType type;
 
-    @Size(max = 255, message = "Идентификор файла доджен содержать не более 255 символов")
-    private String fileId;
-
     @Size(max = 4096, message = "Текст поста должен содержать не более 4096 символов")
     private String text;
 
-    @Valid
-    private Button button;
+    private String fileId;
+    private String fileId_2;
+    private String fileId_3;
+    private String fileId_4;
+    private String fileId_5;
+    private String fileId_6;
+    private String fileId_7;
+    private String fileId_8;
+    private String fileId_9;
+    private String fileId_10;
 
+    private Button button;
+    private Button button_2;
+    private Button button_3;
+    private Button button_4;
+    private Button button_5;
 }

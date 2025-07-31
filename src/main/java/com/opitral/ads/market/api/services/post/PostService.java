@@ -79,11 +79,44 @@ public class PostService extends BaseService<PostEntity, PostView> {
         return PublicationResponse.builder()
                 .type(obj.getType())
                 .fileId(obj.getFileId())
+                .fileId_2(obj.getFileId_2() != null ? obj.getFileId_2() : null)
+                .fileId_3(obj.getFileId_3() != null ? obj.getFileId_3() : null)
+                .fileId_4(obj.getFileId_4() != null ? obj.getFileId_4() : null)
+                .fileId_5(obj.getFileId_5() != null ? obj.getFileId_5() : null)
+                .fileId_6(obj.getFileId_6() != null ? obj.getFileId_6() : null)
+                .fileId_7(obj.getFileId_7() != null ? obj.getFileId_7() : null)
+                .fileId_8(obj.getFileId_8() != null ? obj.getFileId_8() : null)
+                .fileId_9(obj.getFileId_9() != null ? obj.getFileId_9() : null)
+                .fileId_10(obj.getFileId_10() != null ? obj.getFileId_10() : null)
                 .text(obj.getText())
                 .button(
                         obj.getButton() != null ? new ButtonResponse(
                                 obj.getButton().getName(),
                                 obj.getButton().getUrl()
+                        ) : null
+                )
+                .button_2(
+                        obj.getButton_2() != null ? new ButtonResponse(
+                                obj.getButton_2().getName(),
+                                obj.getButton_2().getUrl()
+                        ) : null
+                )
+                .button_3(
+                        obj.getButton_3() != null ? new ButtonResponse(
+                                obj.getButton_3().getName(),
+                                obj.getButton_3().getUrl()
+                        ) : null
+                )
+                .button_4(
+                        obj.getButton_4() != null ? new ButtonResponse(
+                                obj.getButton_4().getName(),
+                                obj.getButton_4().getUrl()
+                        ) : null
+                )
+                .button_5(
+                        obj.getButton_5() != null ? new ButtonResponse(
+                                obj.getButton_5().getName(),
+                                obj.getButton_5().getUrl()
                         ) : null
                 )
                 .build();
